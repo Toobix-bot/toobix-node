@@ -1,85 +1,101 @@
-/**
- * Toobix Node 2.0 – Live Dashboard Application
- * „Alle für alle! (Solidarität statt Isolation)"
- * 
- * Connects to the running Toobix Node backend and displays
- * real-time data: health, reflection, peer-awareness, scarcity, abundance.
- */
+const API_BASE = localStorage.getItem('toobix-api-base') || 'http://localhost:8000';
+const TOKEN_KEY = 'toobix-api-token';
+let tokenPromptOpen = false;
 
-const API_BASE = 'http://localhost:8000';
-let isConnected = false;
+function getApiToken() {
+    return sessionStorage.getItem(TOKEN_KEY) || '';
+}
 
-// ─── Boot ───────────────────────────────────────────────────
+function requestApiToken() {
+    if (tokenPromptOpen) return '';
+    tokenPromptOpen = true;
+    const token = window.prompt(
+        'Dieser Node verlangt einen API-Schlüssel. Er wird nur für diese Browser-Sitzung gespeichert.'
+    );
+    tokenPromptOpen = false;
+    if (token) sessionStorage.setItem(TOKEN_KEY, token.trim());
+    return token?.trim() || '';
+}
+
+window.clearToobixApiToken = () => sessionStorage.removeItem(TOKEN_KEY);
+
+function apiHeaders(hasBody = false) {
+    const headers = {};
+    if (hasBody) headers['Content-Type'] = 'application/json';
+    const token = getApiToken();
+    if (token) headers.Authorization = `Bearer ${token}`;
+    return headers;
+}
+
+async function apiFetch(endpoint, options = {}, retryOnUnauthorized = true) {
+    const controller = new AbortController();
+    const timeout = window.setTimeout(() => controller.abort(), 5000);
+    const hasBody = options.body !== undefined;
+
+    try {
+        const response = await fetch(`${API_BASE}${endpoint}`, {
+            ...options,
+            mode: 'cors',
+            headers: { ...apiHeaders(hasBody), ...(options.headers || {}) },
+            signal: controller.signal,
+        });
+
+        if (response.status === 401 && retryOnUnauthorized) {
+            if (requestApiToken()) return apiFetch(endpoint, options, false);
+        }
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        setConnectionStatus(true);
+        return await response.json();
+    } catch (error) {
+        console.warn(`API ${endpoint}:`, error.message);
+        setConnectionStatus(false);
+        return null;
+    } finally {
+        window.clearTimeout(timeout);
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     initScrollEffects();
     initNavHighlight();
     initForm();
     refreshAll();
-    // Auto-refresh every 10 seconds
-    setInterval(refreshAll, 10000);
+    window.setInterval(refreshAll, 30000);
 });
 
-// ─── Scroll Effects ─────────────────────────────────────────
 function initScrollEffects() {
     const header = document.getElementById('mainHeader');
+    if (!header) return;
     window.addEventListener('scroll', () => {
         header.classList.toggle('scrolled', window.scrollY > 50);
     });
 }
 
-// ─── Navigation Highlight ───────────────────────────────────
 function initNavHighlight() {
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-link');
-    
+    const links = document.querySelectorAll('.nav-link');
     const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                navLinks.forEach(link => link.classList.remove('active'));
-                const activeLink = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
-                if (activeLink) activeLink.classList.add('active');
-            }
+        entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            links.forEach((link) => link.classList.remove('active'));
+            document.querySelector(`.nav-link[href="#${entry.target.id}"]`)?.classList.add('active');
         });
-    }, { threshold: 0.3 });
-    
-    sections.forEach(section => observer.observe(section));
+    }, { threshold: 0.25 });
+    document.querySelectorAll('section[id]').forEach((section) => observer.observe(section));
 }
 
-// ─── API Fetch Helper ───────────────────────────────────────
-async function apiFetch(endpoint) {
-    try {
-        const res = await fetch(`${API_BASE}${endpoint}`, { 
-            mode: 'cors',
-            signal: AbortSignal.timeout(5000)
-        });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const data = await res.json();
-        setConnectionStatus(true);
-        return data;
-    } catch (err) {
-        console.warn(`API ${endpoint}:`, err.message);
-        setConnectionStatus(false);
-        return null;
-    }
-}
-
-// ─── Connection Status ──────────────────────────────────────
 function setConnectionStatus(online) {
-    isConnected = online;
     const dot = document.querySelector('.status-dot');
     const text = document.querySelector('.status-text');
-    if (dot && text) {
-        dot.className = `status-dot ${online ? 'online' : 'offline'}`;
-        text.textContent = online ? 'Node verbunden' : 'Keine Verbindung';
-    }
+    if (!dot || !text) return;
+    dot.className = `status-dot ${online ? 'online' : 'offline'}`;
+    text.textContent = online ? 'Node verbunden' : 'Keine Verbindung';
 }
 
-// ─── Refresh All ────────────────────────────────────────────
 async function refreshAll() {
-    const btn = document.getElementById('btnRefresh');
-    if (btn) {
-        btn.textContent = '↻ Lädt...';
-        btn.disabled = true;
+    const button = document.getElementById('btnRefresh');
+    if (button) {
+        button.disabled = true;
+        button.textContent = '↻ Lädt...';
     }
 
     await Promise.all([
@@ -90,314 +106,161 @@ async function refreshAll() {
         loadAbundance(),
     ]);
 
-    if (btn) {
-        btn.textContent = '↻ Aktualisieren';
-        btn.disabled = false;
+    if (button) {
+        button.disabled = false;
+        button.textContent = '↻ Aktualisieren';
     }
 }
 
-// ─── Health ─────────────────────────────────────────────────
 async function loadHealth() {
-    const data = await apiFetch('/api/health');
-    const el = document.getElementById('healthBody');
-    if (!data) {
-        el.innerHTML = `
-            <div style="text-align:center; padding:1.5rem;">
-                <div style="font-size:2.5rem; margin-bottom:0.5rem;">⚠️</div>
-                <div style="color:var(--accent-red); font-weight:600;">Node nicht erreichbar</div>
-                <div style="color:var(--text-muted); font-size:0.82rem; margin-top:0.5rem;">
-                    Starte das Backend mit:<br>
-                    <code style="background:rgba(255,255,255,0.05); padding:0.3rem 0.6rem; border-radius:4px; font-size:0.75rem;">
-                        python3 -m app.main
-                    </code>
-                </div>
-            </div>`;
-        return;
-    }
-    el.innerHTML = `
-        <div style="text-align:center; padding:1rem;">
-            <div style="font-size:2.5rem; margin-bottom:0.5rem;">✅</div>
-            <div class="status-badge online" style="margin:0 auto;">● Online</div>
-            <div style="margin-top:0.75rem; font-size:0.85rem; color:var(--text-secondary);">
-                ${data.node_id || 'Toobix-Node-2.0'}
-            </div>
-        </div>`;
+    const element = document.getElementById('healthBody');
+    const data = await apiFetch('/api/health', {}, false);
+    if (!element) return;
+    element.innerHTML = data
+        ? `<div class="status-badge online">● Online</div><p>${escapeHtml(data.node_id || 'Toobix Node')}</p>`
+        : '<div class="no-data">Backend nicht erreichbar. Starte es mit <code>python3 -m app.main</code>.</div>';
 }
 
-// ─── Self Reflection ────────────────────────────────────────
 async function loadReflection() {
+    const body = document.getElementById('reflectionBody');
+    const harmony = document.getElementById('harmonyBody');
     const data = await apiFetch('/api/reflection');
-    const el = document.getElementById('reflectionBody');
-    const harmonyEl = document.getElementById('harmonyBody');
+    if (!body || !harmony) return;
 
     if (!data) {
-        el.innerHTML = '<div class="no-data">Keine Reflexionsdaten verfügbar</div>';
-        harmonyEl.innerHTML = '<div class="no-data">--</div>';
+        body.innerHTML = '<div class="no-data">Keine Reflexionsdaten verfügbar</div>';
+        harmony.innerHTML = '<div class="no-data">--</div>';
         return;
     }
 
-    // Reflection grid
-    const mangelItems = (data.mangel || []).map(m => 
-        `<div class="reflection-item mangel">🔴 ${escHtml(m)}</div>`
-    ).join('');
-    const uebItems = (data.ueberfluss || []).map(u => 
-        `<div class="reflection-item ueberfluss">🟢 ${escHtml(u)}</div>`
-    ).join('');
-
-    el.innerHTML = `
+    const needs = (data.mangel || []).map((item) => `<div class="reflection-item mangel">🔴 ${escapeHtml(item)}</div>`).join('');
+    const offers = (data.ueberfluss || []).map((item) => `<div class="reflection-item ueberfluss">🟢 ${escapeHtml(item)}</div>`).join('');
+    body.innerHTML = `
         <div class="reflection-grid">
-            <div class="reflection-col mangel">
-                <h4>Mangel (Eigene Schwächen)</h4>
-                ${mangelItems || '<div class="no-data">Keine Mängel erkannt</div>'}
-            </div>
-            <div class="reflection-col ueberfluss">
-                <h4>Überfluss (Eigene Stärken)</h4>
-                ${uebItems || '<div class="no-data">Keine Stärken erkannt</div>'}
-            </div>
+            <div class="reflection-col mangel"><h4>Technische Bedarfe</h4>${needs || '<div class="no-data">Keine erkannt</div>'}</div>
+            <div class="reflection-col ueberfluss"><h4>Technische Kapazitäten</h4>${offers || '<div class="no-data">Keine erkannt</div>'}</div>
         </div>
-        <div style="text-align:center; margin-top:1rem; font-size:0.82rem; color:var(--text-muted);">
-            ${escHtml(data.status_summary || '')}
-        </div>`;
+        <p>${escapeHtml(data.status_summary || '')}</p>`;
 
-    // Harmony meter
-    const score = data.harmony_score || 0;
-    const pct = Math.round(score * 100);
-    let color = 'var(--accent-green)';
-    let label = 'Harmonisch';
-    if (pct < 30) { color = 'var(--accent-red)'; label = 'Kritisch'; }
-    else if (pct < 60) { color = 'var(--accent-orange)'; label = 'Ausbaufähig'; }
-
-    harmonyEl.innerHTML = `
-        <div class="harmony-meter">
-            <span class="harmony-score" style="color:${color}">${pct}%</span>
-            <div class="harmony-bar">
-                <div class="harmony-fill" style="width:${pct}%; background:${color};"></div>
-            </div>
-            <span class="harmony-label">${label}</span>
-        </div>`;
-
-    // Hero stats
-    document.getElementById('statHarmony').textContent = `${pct}%`;
+    const score = Math.max(0, Math.min(1, Number(data.harmony_score) || 0));
+    const percent = Math.round(score * 100);
+    harmony.innerHTML = `<div class="harmony-meter"><span class="harmony-score">${percent}%</span><div class="harmony-bar"><div class="harmony-fill" style="width:${percent}%"></div></div><span class="harmony-label">Technischer Balancewert</span></div>`;
+    const stat = document.getElementById('statHarmony');
+    if (stat) stat.textContent = `${percent}%`;
 }
 
-// ─── Peer Awareness ─────────────────────────────────────────
 async function loadPeerAwareness() {
+    const peerBody = document.getElementById('peerBody');
+    const logBody = document.getElementById('praiseBody');
     const data = await apiFetch('/api/peers/awareness');
-    const peerEl = document.getElementById('peerBody');
-    const praiseEl = document.getElementById('praiseBody');
+    if (!peerBody || !logBody) return;
 
     if (!data) {
-        peerEl.innerHTML = '<div class="no-data">Keine Peer-Daten verfügbar</div>';
-        praiseEl.innerHTML = '<div class="no-data">Keine Bewertungen verfügbar</div>';
-        document.getElementById('statNodes').textContent = '1';
+        peerBody.innerHTML = '<div class="no-data">Keine Peer-Daten verfügbar</div>';
+        logBody.innerHTML = '<div class="no-data">Keine technischen Prüfungen verfügbar</div>';
         return;
     }
 
     const peers = data.peers || {};
-    const peerKeys = Object.keys(peers);
     const summary = data.network_awareness_summary || {};
+    const peerEntries = Object.entries(peers);
+    const nodeStat = document.getElementById('statNodes');
+    if (nodeStat) nodeStat.textContent = String(peerEntries.length + 1);
 
-    // Update hero stats
-    document.getElementById('statNodes').textContent = (peerKeys.length + 1).toString();
-
-    // Network summary
-    let summaryHtml = `
-        <div class="network-summary">
-            <div class="net-stat">
-                <span class="net-stat-val" style="color:var(--accent-blue)">${peerKeys.length + 1}</span>
-                <span class="net-stat-label">Nodes gesamt</span>
-            </div>
-            <div class="net-stat">
-                <span class="net-stat-val" style="color:var(--accent-green)">${summary.praised_peers || 0}</span>
-                <span class="net-stat-label">Gelobte Peers</span>
-            </div>
-            <div class="net-stat">
-                <span class="net-stat-val" style="color:var(--accent-red)">${summary.criticized_peers || 0}</span>
-                <span class="net-stat-label">Kritisierte Peers</span>
-            </div>
-            <div class="net-stat">
-                <span class="net-stat-val status-badge ${summary.overall_status || ''}" style="font-size:0.9rem;">
-                    ${escHtml(summary.overall_status || 'unbekannt')}
-                </span>
-                <span class="net-stat-label">Netzwerk-Status</span>
-            </div>
-        </div>`;
-
-    // Peer list
-    let peerHtml = peerKeys.length > 0 ? '<div class="peer-list">' : '';
-    for (const [url, info] of Object.entries(peers)) {
-        const rep = info.reputation_score || 0;
-        const shortUrl = url.replace(/https?:\/\//, '');
-        peerHtml += `
+    peerBody.innerHTML = peerEntries.length
+        ? peerEntries.map(([url, info]) => `
             <div class="peer-item">
                 <div class="peer-avatar">⬡</div>
-                <div class="peer-info">
-                    <div class="peer-rep">⭐ Reputation: ${rep}</div>
-                    <div class="peer-url">${escHtml(shortUrl)}</div>
-                    <div style="font-size:0.75rem; color:var(--text-muted);">
-                        Praise: ${info.praise_count || 0} · Criticism: ${info.criticism_count || 0} · 
-                        Antwortzeit: ${(info.last_response_time_ms || 0).toFixed(1)}ms
-                    </div>
-                </div>
-                <span class="peer-health ${info.health || 'unknown'}">${escHtml(info.health || '?')}</span>
-            </div>`;
-    }
-    if (peerKeys.length > 0) peerHtml += '</div>';
-    else peerHtml = '<div class="no-data">Noch keine Peers verbunden. Starte einen zweiten Node!</div>';
+                <div class="peer-info"><strong>${escapeHtml(url)}</strong><div>${escapeHtml(info.health || 'unknown')} · ${Number(info.last_response_time_ms || 0).toFixed(1)} ms</div></div>
+            </div>`).join('')
+        : '<div class="no-data">Noch keine Peers verbunden.</div>';
 
-    peerEl.innerHTML = summaryHtml + peerHtml;
-
-    // Praise / Criticism log
-    const history = data.history || data.praise_criticism_history || [];
-    if (history.length === 0) {
-        praiseEl.innerHTML = '<div class="no-data">Noch keine Bewertungen vorhanden</div>';
-    } else {
-        let logHtml = '<div class="praise-list">';
-        for (const entry of history.slice(-20).reverse()) {
-            const type = entry.type || 'praise';
-            const icon = type === 'praise' ? '👍' : '⚠️';
-            logHtml += `
-                <div class="praise-item ${type}">
-                    <span style="font-size:1.1rem;">${icon}</span>
-                    <span class="praise-reason">${escHtml(entry.reason || '')}</span>
-                    <span class="praise-token">${escHtml(entry.token || '')}</span>
-                </div>`;
-        }
-        logHtml += '</div>';
-        praiseEl.innerHTML = logHtml;
-    }
+    const history = data.history || [];
+    logBody.innerHTML = history.length
+        ? history.slice(-20).reverse().map((item) => `<div class="praise-item ${escapeHtml(item.type || '')}"><span>⚙️</span><span class="praise-reason">${escapeHtml(item.reason || '')}</span></div>`).join('')
+        : `<div class="no-data">Netzwerkstatus: ${escapeHtml(summary.overall_status || 'idle')}</div>`;
 }
 
-// ─── Scarcity ───────────────────────────────────────────────
+function renderEntries(entries, targetId, icon) {
+    const element = document.getElementById(targetId);
+    if (!element) return;
+    element.innerHTML = entries.length
+        ? entries.map((entry) => `
+            <article class="entry-item">
+                <h5>${icon} ${escapeHtml(entry.title || 'Ohne Titel')}</h5>
+                <p>${escapeHtml(entry.description || '')}</p>
+                <div class="entry-meta"><span>📁 ${escapeHtml(entry.category || 'Allgemein')}</span><span>📍 ${escapeHtml(entry.location || 'Nicht angegeben')}</span></div>
+            </article>`).join('')
+        : '<div class="no-data">Keine Einträge vorhanden</div>';
+}
+
 async function loadScarcity() {
     const data = await apiFetch('/api/scarcity');
-    const el = document.getElementById('scarcityList');
-
-    if (!data || data.length === 0) {
-        el.innerHTML = '<div class="no-data">Keine Mangel-Einträge vorhanden</div>';
-        document.getElementById('statNeeds').textContent = '0';
-        return;
-    }
-
-    document.getElementById('statNeeds').textContent = data.length.toString();
-
-    el.innerHTML = data.map(entry => `
-        <div class="entry-item">
-            <h5>🔴 ${escHtml(entry.title || 'Ohne Titel')}</h5>
-            <p>${escHtml(entry.description || '')}</p>
-            <div class="entry-meta">
-                <span>📁 ${escHtml(entry.category || 'Allgemein')}</span>
-                <span>📍 ${escHtml(entry.location || 'Unbekannt')}</span>
-                <span>⚡ ${escHtml(entry.urgency || 'mittel')}</span>
-            </div>
-        </div>
-    `).join('');
+    const entries = Array.isArray(data) ? data : [];
+    renderEntries(entries, 'scarcityList', '🔴');
+    const stat = document.getElementById('statNeeds');
+    if (stat) stat.textContent = String(entries.length);
 }
 
-// ─── Abundance ──────────────────────────────────────────────
 async function loadAbundance() {
     const data = await apiFetch('/api/abundance');
-    const el = document.getElementById('abundanceList');
-    const solidarityGrid = document.getElementById('solidarityGrid');
+    const entries = Array.isArray(data) ? data : [];
+    renderEntries(entries, 'abundanceList', '🟢');
+    const stat = document.getElementById('statOffers');
+    if (stat) stat.textContent = String(entries.length);
 
-    if (!data || data.length === 0) {
-        el.innerHTML = '<div class="no-data">Keine Überfluss-Einträge vorhanden</div>';
-        solidarityGrid.innerHTML = '<div class="no-data">Keine Hilfsangebote in der Datenbank</div>';
-        document.getElementById('statOffers').textContent = '0';
-        return;
-    }
-
-    document.getElementById('statOffers').textContent = data.length.toString();
-
-    // Exchange list (all entries)
-    el.innerHTML = data.map(entry => `
-        <div class="entry-item">
-            <h5>🟢 ${escHtml(entry.title || 'Ohne Titel')}</h5>
-            <p>${escHtml(entry.description || '')}</p>
-            <div class="entry-meta">
-                <span>📁 ${escHtml(entry.category || 'Allgemein')}</span>
-                <span>📍 ${escHtml(entry.location || 'Unbekannt')}</span>
-            </div>
-        </div>
-    `).join('');
-
-    // Solidarity section (tagged entries only)
-    const solidarityOffers = data.filter(e => 
-        (e.tags && e.tags.includes('solidarity_offer')) || 
-        e.contact && e.contact.match(/^\d/)
-    );
-
-    if (solidarityOffers.length > 0) {
-        solidarityGrid.innerHTML = solidarityOffers.map(entry => `
-            <div class="solidarity-card">
-                <h4>${escHtml(entry.title || 'Hilfsangebot')}</h4>
-                <p>${escHtml(entry.description || '')}</p>
-                <div class="solidarity-meta">
-                    ${(entry.tags || []).filter(t => t !== 'solidarity_offer').map(t => 
-                        `<span class="solidarity-tag">${escHtml(t)}</span>`
-                    ).join('')}
-                </div>
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <span style="font-size:0.78rem; color:var(--text-muted);">📍 ${escHtml(entry.location || '')}</span>
-                    ${entry.contact ? `<a href="tel:${entry.contact}" class="solidarity-contact">📞 ${escHtml(entry.contact)}</a>` : ''}
-                </div>
-            </div>
-        `).join('');
-    } else {
-        solidarityGrid.innerHTML = '<div class="no-data">Keine verifizierten Hilfsangebote gefunden</div>';
-    }
+    const grid = document.getElementById('solidarityGrid');
+    if (!grid) return;
+    const seeded = entries.filter((entry) => Array.isArray(entry.tags) && entry.tags.includes('solidarity_offer'));
+    grid.innerHTML = seeded.length
+        ? seeded.map((entry) => `
+            <article class="solidarity-card">
+                <h4>${escapeHtml(entry.title || 'Hilfsangebot')}</h4>
+                <p>${escapeHtml(entry.description || '')}</p>
+                <p><strong>Vor Nutzung Aktualität und Zuständigkeit prüfen.</strong></p>
+                <div>📍 ${escapeHtml(entry.location || '')}</div>
+                ${entry.contact ? `<div>Kontakt: ${escapeHtml(entry.contact)}</div>` : ''}
+            </article>`).join('')
+        : '<div class="no-data">Keine geprüften Seed-Einträge geladen.</div>';
 }
 
-// ─── Form Handler ───────────────────────────────────────────
 function initForm() {
     const form = document.getElementById('entryForm');
     if (!form) return;
 
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault();
         const feedback = document.getElementById('formFeedback');
         const type = document.getElementById('entryType').value;
         const endpoint = type === 'scarcity' ? '/api/scarcity' : '/api/abundance';
-
-        const body = {
+        const payload = {
             title: document.getElementById('entryTitle').value.trim(),
             category: document.getElementById('entryCategory').value,
             description: document.getElementById('entryDesc').value.trim(),
-            location: document.getElementById('entryLocation').value.trim() || 'Deutschland',
-            contact: document.getElementById('entryContact').value.trim() || '',
+            location: document.getElementById('entryLocation').value.trim(),
+            contact: document.getElementById('entryContact').value.trim(),
         };
 
-        if (!body.title || !body.description) {
-            feedback.className = 'form-feedback error';
-            feedback.textContent = 'Bitte Titel und Beschreibung ausfüllen.';
-            return;
-        }
+        if (!payload.title || !payload.description) return;
+        if (feedback) feedback.textContent = 'Speichere lokal und synchronisiere gegebenenfalls mit verbundenen Peers…';
 
-        try {
-            const res = await fetch(`${API_BASE}${endpoint}`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(body),
-            });
-            if (!res.ok) throw new Error(`HTTP ${res.status}`);
-            
-            feedback.className = 'form-feedback success';
-            feedback.textContent = `✅ Eintrag "${body.title}" erfolgreich an das Netzwerk gesendet!`;
+        const result = await apiFetch(endpoint, {
+            method: 'POST',
+            body: JSON.stringify(payload),
+        });
+
+        if (result) {
             form.reset();
-            
-            // Refresh data
-            setTimeout(refreshAll, 1000);
-        } catch (err) {
-            feedback.className = 'form-feedback error';
-            feedback.textContent = `❌ Fehler: ${err.message}. Ist das Backend gestartet?`;
+            if (feedback) feedback.textContent = 'Eintrag gespeichert. Keine vertraulichen Daten veröffentlichen.';
+            await Promise.all([loadScarcity(), loadAbundance()]);
+        } else if (feedback) {
+            feedback.textContent = 'Speichern fehlgeschlagen. Verbindung und API-Schlüssel prüfen.';
         }
     });
 }
 
-// ─── Utility ────────────────────────────────────────────────
-function escHtml(str) {
-    if (!str) return '';
-    const div = document.createElement('div');
-    div.textContent = String(str);
-    return div.innerHTML;
+function escapeHtml(value) {
+    const element = document.createElement('div');
+    element.textContent = String(value ?? '');
+    return element.innerHTML;
 }
