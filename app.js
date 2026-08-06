@@ -86,9 +86,20 @@ function initNavHighlight() {
 function setConnectionStatus(online) {
     const dot = document.querySelector('.status-dot');
     const text = document.querySelector('.status-text');
-    if (!dot || !text) return;
-    dot.className = `status-dot ${online ? 'online' : 'offline'}`;
-    text.textContent = online ? 'Node verbunden' : 'Keine Verbindung';
+    if (dot && text) {
+        dot.className = `status-dot ${online ? 'online' : 'offline'}`;
+        text.textContent = online ? 'Node verbunden' : 'Keine Verbindung';
+    }
+
+    // Toggle local node view
+    const localNodeView = document.getElementById('local-node-view');
+    if (localNodeView) {
+        if (online) {
+            localNodeView.style.display = 'block';
+        } else {
+            localNodeView.style.display = 'none';
+        }
+    }
 }
 
 async function refreshAll() {

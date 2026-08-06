@@ -35,6 +35,10 @@
     </header>
 
     <main id="mainContent">
+        <!-- ========================================== -->
+        <!-- 1. PUBLIC BLUEPRINT VIEW                   -->
+        <!-- ========================================== -->
+        <div id="public-view">
         <section id="hero" class="hero">
             <div class="hero-content">
                 <div class="hero-badge"><span class="badge-dot"></span>Statische öffentliche Darstellung · lokaler Node optional · kein produktives Hilfsnetzwerk</div>
@@ -128,7 +132,13 @@
                 <p class="ecosystem-note">Die direkte ChatGPT-App-Verbindung ist noch nicht umgesetzt. Bis dahin bleiben Übergaben bewusst manuell oder erfolgen über ausdrücklich verbundene und geprüfte Werkzeuge.</p>
             </div>
         </section>
+        </div> <!-- End of public-view -->
 
+        <!-- ========================================== -->
+        <!-- 2. LOCAL NODE VIEW (Hidden by default)     -->
+        <!-- ========================================== -->
+        <div id="local-node-view" style="display: none;">
+        
         <section id="live-dashboard" class="section">
             <div class="section-header">
                 <h2>📡 Lokales Dashboard</h2>
@@ -234,6 +244,7 @@
                 <article class="sos-card"><div class="sos-icon">🧒</div><h3>Nummer gegen Kummer</h3><p>Kinder- und Jugendtelefon, Montag bis Samstag 14–20 Uhr</p><a href="tel:116111" class="sos-btn">116 111</a></article>
             </div>
         </section>
+        </div> <!-- End of local-node-view -->
     </main>
 
     <footer>

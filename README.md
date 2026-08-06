@@ -4,16 +4,20 @@
 
 > **„Alle für alle! (Solidarität statt Isolation)"**
 
-## Bedeutung des Projekts
+## 🌍 Was ist dieses Repository?
 
-TOOBIX ist nicht nur Software. Es ist zugleich:
+Dieses GitHub-Repository ist **kein** Startup, **kein** kommerzielles Produkt und **kein** zentral gehosteter Dienst. 
+Es ist das **P2P- & Solidaritäts-Modul** des dezentralen Toobix-Ökosystems. 
 
-- ein vorsichtiger, vorerst anonymer Schritt in die Öffentlichkeit
-- ein Selbstbild aus Werten, Widersprüchen, Erfahrungen und Hoffnung
-- ein Werkzeug für Bedarfe, Angebote und spätere Vermittlung
-- ein offenes Geschenk, das andere prüfen, nutzen, kritisieren und weiterbauen dürfen
+In einer Welt, die von Profit-getriebenen Plattformen (Gig-Economy) dominiert wird, ist dieses Modul ein "Riss in der Matrix" – ein Code, der Solidar-Credits und menschliche Bedürfnisse (Mangel/Überfluss) über Euro und Dollar stellt.
 
-Das Projekt soll nicht beweisen, dass sein Urheber wertvoll ist, und es verspricht nicht, die Welt zu retten. Es versucht, dem Leben etwas Brauchbares zurückzugeben: Würde, Orientierung, Verbindung und die Möglichkeit, einander zu tragen.
+### Ein öffentlicher Zwilling (Die Zwei Seiten der Medaille)
+Das gesamte TOOBIX-System besteht aus zwei Welten:
+1. **Dem privaten Life-OS (Toobix-bot/toobix)**: Das kanonische innere System eines Menschen. Hier liegen die echten, persönlichen Wahrheiten, Aufgaben und Gesundheitsdaten.
+2. **Diesem öffentlichen Modul (Toobix-bot/toobix-node)**: Die abstrahierte, verallgemeinerte und anonymisierte Essenz. Ein Geschenk an die Gemeinschaft. Es gibt keinen automatischen Datenabfluss von Privat zu Öffentlich. Jeder Commit hier durchläuft einen bewussten menschlichen Review-Prozess (Siehe `ORIGIN-AND-BOUNDARIES.md`).
+
+### Die GitHub Pages: Das Manifest
+Die öffentliche Webseite (GitHub Pages) ist unser [Digitaler Garten / Manifest](https://toobix-bot.github.io/toobix-node). Sie dokumentiert anonymisiert die Philosophie und den Versuch, ein Gleichgewicht zwischen Ressourcen zu schaffen. **Das lokale P2P-Dashboard wird dort erst sichtbar, wenn du selbst einen Node betreibst.**
 
 Mehr dazu steht in [GIFT.md](GIFT.md).
 

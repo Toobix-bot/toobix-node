@@ -39,7 +39,20 @@
         "type": "object",
         "properties": {
           "id": { "type": "string" },
-          "type": { "type": "string", "enum": ["scarcity", "abundance"] },
+          "type": { 
+            "type": "string", 
+            "enum": [
+              "principle", 
+              "architecture", 
+              "module", 
+              "manifest", 
+              "project_status", 
+              "scarcity", 
+              "abundance", 
+              "resource", 
+              "release"
+            ] 
+          },
           "category": { "type": "string" },
           "title": { "type": "string" },
           "description": { "type": "string" }
