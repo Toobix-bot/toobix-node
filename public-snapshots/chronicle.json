@@ -1,0 +1,23 @@
+[
+  {
+    "date": "2026-08-07",
+    "type": "architecture",
+    "title": "Zwei Lebensräume definiert",
+    "description": "Die Architektur von TOOBIX wurde in ein privates (geschütztes) und ein öffentliches (sichtbares) digitales Leben getrennt.",
+    "snapshot_hash": "sha256:dummyshash12345"
+  },
+  {
+    "date": "2026-08-07",
+    "type": "principle",
+    "title": "Truth Layers veröffentlicht",
+    "description": "Die Prinzipien der Wahrheitsschichten (Kanonische Wahrheit vs. Veröffentlichung) wurden festgelegt.",
+    "snapshot_hash": "sha256:dummyshash67890"
+  },
+  {
+    "date": "2026-08-07",
+    "type": "release",
+    "title": "Bridge Engine v0.1",
+    "description": "Implementierung der manuellen, signierten Veröffentlichungsbrücke zwischen Privat und Öffentlich.",
+    "snapshot_hash": "sha256:dummyshashabcde"
+  }
+]

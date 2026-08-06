@@ -60,8 +60,36 @@ document.addEventListener('DOMContentLoaded', () => {
     initNavHighlight();
     initForm();
     refreshAll();
+    fetchChronicle();
     window.setInterval(refreshAll, 30000);
 });
+
+async function fetchChronicle() {
+    const list = document.getElementById('chronicleList');
+    if (!list) return;
+
+    try {
+        const response = await fetch('public-snapshots/chronicle.json');
+        if (!response.ok) throw new Error('Chronik nicht gefunden');
+        const chronicle = await response.json();
+        
+        list.innerHTML = chronicle.map(entry => `
+            <div class="card" style="margin-bottom: 1rem; border-left: 4px solid var(--accent-primary);">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.875rem; color: var(--text-muted);">
+                    <span>${escapeHtml(entry.date)}</span>
+                    <span style="text-transform: uppercase; font-weight: 600;">${escapeHtml(entry.type)}</span>
+                </div>
+                <h3 style="margin: 0 0 0.5rem 0; font-size: 1.125rem;">${escapeHtml(entry.title)}</h3>
+                <p style="margin: 0; font-size: 0.95rem;">${escapeHtml(entry.description)}</p>
+                <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted); opacity: 0.6; word-break: break-all;">
+                    ${escapeHtml(entry.snapshot_hash)}
+                </div>
+            </div>
+        `).join('');
+    } catch (err) {
+        list.innerHTML = `<p class="no-data">Die Chronik konnte nicht geladen werden oder ist noch leer.</p>`;
+    }
+}
 
 function initScrollEffects() {
     const header = document.getElementById('mainHeader');
