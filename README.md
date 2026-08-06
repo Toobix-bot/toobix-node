@@ -1,158 +1,134 @@
 # ⬡ Toobix Node 2.0
 
-### Dezentrales Solidaritäts-Netzwerk
+Ein experimenteller Open-Source-Prototyp für lokalen solidarischen Austausch von Bedarfen und Angeboten mit optionaler Synchronisation zwischen ausdrücklich verbundenen Nodes.
 
-> **„Alle für alle! (Solidarität statt Isolation)"**
+> **Alle für alle – aber mit Freiwilligkeit, Datenschutz und klaren technischen Grenzen.**
 
----
+## Projektstatus
 
-## 🌍 Was ist Toobix Node?
+Toobix Node 2.0 ist derzeit **kein produktives öffentliches Hilfsnetzwerk**. Der aktuelle Stand enthält:
 
-Toobix Node ist ein **dezentrales Peer-to-Peer Netzwerk**, das **Mangel** und **Überfluss** zusammenbringt – ohne zentralen Server, ohne Tracking, ohne Kosten.
+- ein Python-HTTP-Backend mit SQLite-Datenbank
+- REST-Endpunkte für Bedarfe, Angebote und Matching
+- optionale Peer-Registrierung und Push-/Pull-Synchronisation
+- ein lokales Browser-Dashboard
+- technische Node- und Peer-Zustandsanzeigen
+- eine importierbare Seed-Datensammlung für Hilfskategorien
+- Tests für Backend, Pipeline und lokales Mehr-Node-Verhalten
 
-Jeder Mensch ist ab Geburt Mitglied. Ob du deine Stimme aktivierst, entscheidest du. Kein Zwang. Kein Muss. Aber an alle ist gedacht.
+Noch nicht belastbar umgesetzt sind unter anderem:
 
-### Was macht es?
+- Ende-zu-Ende-Verschlüsselung
+- Identitäts- oder Berechtigungsmanagement für mehrere Nutzer
+- Moderation und Missbrauchsschutz
+- verlässliche Löschung bereits synchronisierter Daten auf fremden Nodes
+- redaktionell dauerhaft gepflegte Hilfsdaten
+- produktionsreifes Deployment, Monitoring und Backup
 
-| Funktion | Beschreibung |
-|----------|-------------|
-| 🔴 **Mangel melden** | Hilfe benötigt? Trage deinen Bedarf ein. |
-| 🟢 **Überfluss teilen** | Du hast zu viel? Teile es mit anderen. |
-| ⚖️ **Automatisches Matching** | Das System findet passende Angebote für Bedarfe. |
-| 🧠 **Selbstreflexion** | Jeder Node erkennt seine eigenen Stärken und Schwächen. |
-| 🤝 **Peer-Awareness** | Nodes bewerten sich gegenseitig: Lob bei guter Leistung, Kritik bei Problemen. |
-| 🔄 **P2P-Synchronisation** | Daten werden direkt zwischen Nodes ausgetauscht – kein zentraler Server. |
-| 🏥 **Echte Hilfsangebote** | Verifizierte Organisationen (Tafel, Kältebus, TelefonSeelsorge etc.) sind vorinstalliert. |
+## Datenschutz in einem Satz
 
----
+**Keine vertraulichen Gesundheits-, Ausweis-, Finanz-, Adress-, Kontakt- oder Zugangsdaten eintragen.** Einträge werden in SQLite gespeichert und können bei aktivierter Peer-Verbindung an andere Nodes übertragen werden.
 
-## 🚀 Schnellstart
+Mehr dazu steht in [PRIVACY.md](PRIVACY.md) und [SECURITY.md](SECURITY.md).
+
+## Lokaler Schnellstart
+
+Voraussetzungen: Python 3.10 oder neuer.
 
 ```bash
-# Klonen
 git clone https://github.com/Toobix-bot/toobix-node.git
 cd toobix-node
+python3 -m pip install -r requirements.txt
 
-# Backend starten (keine externen Abhängigkeiten nötig!)
+# Das Backend bindet standardmäßig nur an 127.0.0.1.
 python3 -m app.main
 
-# In einem zweiten Terminal: Front-End starten
+# Zweites Terminal: statisches Frontend
 python3 -m http.server 8080
-
-# Browser öffnen
-# Backend API: http://localhost:8000/api/health
-# Front-End:   http://localhost:8080
 ```
 
-### Voraussetzungen
+Danach:
 
-- Python 3.10+
-- Kein Framework nötig – 100% Python Standard Library
+- Dashboard: `http://localhost:8080`
+- Health-Endpunkt: `http://localhost:8000/api/health`
 
----
+## API-Schutz
 
-## 🌐 P2P-Netzwerk aufbauen
+Für einen nicht lokalen Bind ist standardmäßig ein Schlüssel erforderlich:
 
 ```bash
-# Zweiten Node starten
+export HOST=0.0.0.0
+export TOOBIX_API_TOKEN="einen-langen-zufälligen-wert-verwenden"
+python3 -m app.main
+```
+
+Der Schlüssel wird als Bearer-Token oder über `X-Toobix-Token` gesendet:
+
+```bash
+curl http://localhost:8000/api/scarcity \
+  -H "Authorization: Bearer $TOOBIX_API_TOKEN"
+```
+
+Das Dashboard fragt bei einer `401`-Antwort einmal pro Browser-Sitzung nach diesem Schlüssel und speichert ihn ausschließlich in `sessionStorage`.
+
+`TOOBIX_ALLOW_INSECURE_REMOTE=1` schaltet die Schutzprüfung bewusst aus. Diese Option ist ausschließlich für isolierte Testnetze gedacht.
+
+## Lokales P2P-Beispiel
+
+```bash
+# Node 1
+PORT=8000 DB_PATH=node1.db python3 -m app.main
+
+# Node 2
 PORT=8001 DB_PATH=node2.db python3 -m app.main
 
-# Nodes verbinden
+# Node 2 bei Node 1 registrieren
 curl -X POST http://localhost:8000/api/peers/register \
   -H "Content-Type: application/json" \
   -d '{"peer_url":"http://127.0.0.1:8001"}'
 ```
 
-Sobald verbunden, synchronisieren sich alle Einträge automatisch. Jeder Node bewertet seine Peers mit **Praise-Tokens** (👍) und **Criticism-Logs** (⚠️).
+Peer-Synchronisation verwendet keine Ende-zu-Ende-Verschlüsselung. Für Verbindungen über unsichere Netze ist TLS über einen vertrauenswürdig konfigurierten Reverse Proxy erforderlich.
 
----
+## Docker
 
-## 🐳 Docker
+Der Container läuft als Nicht-Root-Nutzer. Für den Compose-Start muss ein gemeinsamer Testschlüssel gesetzt werden:
 
 ```bash
-# Einzelner Container
-docker build -t toobix-node .
-docker run -d -p 8000:8000 -v toobix-data:/data toobix-node
-
-# 3-Node-Netzwerk
-docker-compose up -d
+export TOOBIX_API_TOKEN="$(python3 -c 'import secrets; print(secrets.token_hex(32))')"
+docker compose up --build
 ```
 
----
+Die Beispiel-Ports werden nur an `127.0.0.1` des Hosts gebunden.
 
-## 📡 API-Endpunkte
+## Datenpipeline
 
-| Methode | Pfad | Beschreibung |
-|---------|------|-------------|
-| `GET` | `/api/health` | Node-Status |
-| `GET` | `/api/reflection` | Selbstreflexion (Mangel/Überfluss/Harmonie) |
-| `GET/POST` | `/api/scarcity` | Mangel-Einträge (Bedarfe) |
-| `GET/POST` | `/api/abundance` | Überfluss-Einträge (Angebote) |
-| `POST` | `/api/matches` | Matching berechnen |
-| `GET` | `/api/peers` | Verbundene Peers |
-| `POST` | `/api/peers/register` | Neuen Peer registrieren |
-| `GET` | `/api/peers/awareness` | Peer-Bewertungen & Reputation |
-| `POST` | `/api/p2p/sync` | Daten synchronisieren |
+`app/pipeline.py` verwendet `requests` und `beautifulsoup4`. Die eingebetteten Datensätze sind Startwerte, keine Garantie für aktuelle Telefonnummern, Zuständigkeiten oder Öffnungszeiten. Vor einer Anzeige als konkretes Hilfsangebot müssen Quelle und Aktualität redaktionell geprüft werden.
 
----
+## Tests
 
-## 🏥 Vorinstallierte Hilfsangebote
-
-| Organisation | Kategorie | Kontakt |
-|-------------|-----------|---------|
-| Tafel Deutschland e.V. | Nahrung | 030 20059760 |
-| Kältebus Berlin | Unterkunft | 030 690333690 |
-| Bahnhofsmission | Unterkunft | 030 314959-0 |
-| TelefonSeelsorge | Psychologisch | 0800 111 0 111 |
-| Kinder- und Jugendtelefon | Psychologisch | 116 111 |
-| Hilfetelefon Gewalt gegen Frauen | Notfall | 116 016 |
-| Medibüro Berlin | Medizin | 030 6946746 |
-
----
-
-## 🏗️ Architektur
-
-```
-┌──────────────┐     P2P Sync      ┌──────────────┐
-│  Node 1      │◄──────────────────►│  Node 2      │
-│  :8000       │  Praise/Criticism  │  :8001       │
-│              │                    │              │
-│ Self-Reflect │                    │ Self-Reflect │
-│ Matching     │                    │ Matching     │
-│ SQLite DB    │                    │ SQLite DB    │
-└──────────────┘                    └──────────────┘
-        ▲           ┌──────────────┐         ▲
-        └───────────│  Node 3      │─────────┘
-                    │  :8002       │
-                    └──────────────┘
+```bash
+python3 -m pytest -q test_backend.py
+python3 test_pipeline.py
+bash test_p2p.sh
+node --check app.js
 ```
 
----
+GitHub Actions führt diese Prüfungen bei Pushes und Pull Requests automatisch aus.
 
-## 🤝 Mitmachen
+## Wichtige Konfiguration
 
-1. **Fork** dieses Repository
-2. **Starte** deinen eigenen Node
-3. **Verbinde** dich mit dem Netzwerk
-4. **Teile** deine Ressourcen
+| Variable | Zweck | Standard |
+|---|---|---|
+| `HOST` | Bind-Adresse | `127.0.0.1` |
+| `PORT` | Backend-Port | `8000` |
+| `DB_PATH` | SQLite-Datei | `toobix_node.db` |
+| `TOOBIX_API_TOKEN` | Schlüssel für geschützte API-Zugriffe | leer bei rein lokaler Nutzung |
+| `TOOBIX_ALLOWED_ORIGINS` | erlaubte Browser-Origins | lokale Frontend-Adressen |
+| `TOOBIX_MAX_BODY_BYTES` | maximale JSON-Anfragegröße | 1 MiB |
+| `TOOBIX_MAX_SYNC_ENTRIES` | maximale Einträge pro Sync | 500 |
+| `TOOBIX_ALLOW_PRIVATE_PEERS` | private/Loopback-Peers erlauben | `1` |
 
-Jede Hilfe zählt. Jede Stimme zählt. **Alle für alle.**
+## Lizenz
 
----
-
-## 📜 Philosophie
-
-> *„Jeder Mensch besitzt einen unantastbaren Wert, eine Stimme sowie individuelle Phasen von Mangel, Gleichgewicht und Überfluss."*
-
-- **Kein Zwang, keine Kosten** – Die Teilnahme ist freiwillig.
-- **Dezentral** – Keine Datenkrake, kein Master-Server.
-- **Transparent** – Jeder Node reflektiert sich selbst und seine Peers.
-- **Solidarisch** – Wer im Überfluss ist, gibt ab. Wer im Mangel ist, empfängt.
-
----
-
-## 📄 Lizenz
-
-Freie Software. Keine Cookies. Keine Nachverfolgung.
-
-*Einer für alle und alle für einen – bzw. alle für alle statt einer für einen!*
+Der Code steht unter der [MIT-Lizenz](LICENSE). Inhalte oder Kontaktdaten Dritter können eigenen Rechten und Verantwortlichkeiten unterliegen.
