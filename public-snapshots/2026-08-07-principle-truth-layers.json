@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0",
+  "source_system": "TOOBIX_PRIVATE",
+  "visibility": "public",
+  "truth_status": "verified",
+  "contains_personal_data": false,
+  "approved_by": "Micha",
+  "approved_at": "2026-08-07T01:45:00Z",
+  "snapshot_hash": "sha256:abcd1234efgh5678",
+  "summary": "Drei Ebenen von Fakten, Interpretation und Symbolik definiert.",
+  "published_at": "2026-08-07T01:50:00Z",
+  "tags": [
+    "truth",
+    "governance",
+    "philosophy"
+  ],
+  "items": [
+    {
+      "id": "2026-08-07-truth-layers",
+      "type": "principle",
+      "category": "core",
+      "title": "Truth Layers veröffentlicht",
+      "description": "Die Prinzipien der Wahrheitsschichten wurden definiert."
+    }
+  ]
+}

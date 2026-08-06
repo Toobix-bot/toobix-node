@@ -25,10 +25,13 @@ export interface PublicSnapshot {
     truth_status: "verified" | "prototype" | "idea";
     contains_personal_data: false;
     items: SnapshotItem[];
-    // Added during approve:
     approved_by?: string;
     approved_at?: string;
     snapshot_hash?: string;
+    // Added during prepare for chronicle:
+    summary?: string;
+    published_at?: string;
+    tags?: string[];
 }
 
 export interface BuildSnapshotRequest {

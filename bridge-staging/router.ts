@@ -28,14 +28,14 @@ bridgeRouter.get('/pending', (req, res) => {
     }
 });
 
-// 3. Snapshot freigeben (signieren und in ready/ verschieben)
+// 3. Snapshot freigeben (signieren und in approved/ verschieben)
 bridgeRouter.post('/approve-snapshot', async (req, res) => {
     try {
-        const readyPath = await approveSnapshot(req.body);
+        const approvedPath = await approveSnapshot(req.body);
         res.json({ 
             status: 'approved', 
-            ready_path: readyPath,
-            message: 'Snapshot signiert und in ready/ abgelegt. Manuelle Kopie ins public repo erforderlich!'
+            approved_path: approvedPath,
+            message: 'Snapshot signiert und in approved/ abgelegt. Weiter zu prepare!'
         });
     } catch (error: any) {
         res.status(500).json({ error: error.message });

@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { PublicSnapshot, BuildSnapshotRequest } from './types';
+import { validateSnapshotData } from './validate';
 
 const PENDING_DIR = path.join(process.cwd(), '_TOOBIX_KNOWLEDGE_SPACE', 'bridge', 'pending');
 
@@ -8,6 +9,9 @@ const PENDING_DIR = path.join(process.cwd(), '_TOOBIX_KNOWLEDGE_SPACE', 'bridge'
  * Erstellt einen neuen Snapshot im "pending" Ordner zur manuellen Überprüfung.
  */
 export async function buildSnapshot(req: BuildSnapshotRequest): Promise<string> {
+    // 1. Validierung (Blockiert PII und Schema-Verstöße sofort)
+    validateSnapshotData(req);
+
     // Ordner sicherstellen
     fs.mkdirSync(PENDING_DIR, { recursive: true });
 
@@ -17,7 +21,7 @@ export async function buildSnapshot(req: BuildSnapshotRequest): Promise<string> 
         source_system: "TOOBIX_PRIVATE",
         visibility: "public",
         truth_status: req.truth_status,
-        contains_personal_data: false, // Vertragliche Zusicherung durch den Builder
+        contains_personal_data: false, // Vertragliche Zusicherung + Validate-Schicht
         items: req.items
     };
 
