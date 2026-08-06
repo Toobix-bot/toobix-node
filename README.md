@@ -1,8 +1,8 @@
-# ⬡ Toobix Node 2.0
+# ⬡ Toobix Node 2.0 – Das Blueprint
 
-Ein experimenteller Open-Source-Prototyp für lokalen solidarischen Austausch von Bedarfen und Angeboten mit optionaler Synchronisation zwischen ausdrücklich verbundenen Nodes.
+### Statische öffentliche Darstellung · lokaler Node optional · kein produktives Hilfsnetzwerk
 
-> **Alle für alle – Individualität bewahren, Gemeinschaft ermöglichen und Brücken bauen.**
+> **„Alle für alle! (Solidarität statt Isolation)"**
 
 ## Bedeutung des Projekts
 

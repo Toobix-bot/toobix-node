@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Public Snapshot Schema",
+  "description": "Standardisiertes Exportformat für die sichere, manuelle Publikation von anonymisierten Daten aus dem privaten Toobix-System.",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "enum": ["1.0"]
+    },
+    "source_system": {
+      "type": "string",
+      "enum": ["TOOBIX_PRIVATE"]
+    },
+    "approved_by": {
+      "type": "string",
+      "description": "Pseudonym des Freigebenden (z.B. Toobix-bot)"
+    },
+    "approved_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "visibility": {
+      "type": "string",
+      "enum": ["public"]
+    },
+    "truth_status": {
+      "type": "string",
+      "enum": ["verified", "prototype", "idea"]
+    },
+    "contains_personal_data": {
+      "type": "boolean",
+      "const": false
+    },
+    "items": {
+      "type": "array",
+      "description": "Liste der zu veröffentlichenden Einträge (Bedarfe/Angebote)",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "type": { "type": "string", "enum": ["scarcity", "abundance"] },
+          "category": { "type": "string" },
+          "title": { "type": "string" },
+          "description": { "type": "string" }
+        },
+        "required": ["id", "type", "category", "title"]
+      }
+    }
+  },
+  "required": [
+    "schema_version",
+    "source_system",
+    "approved_by",
+    "approved_at",
+    "visibility",
+    "truth_status",
+    "contains_personal_data",
+    "items"
+  ]
+}
