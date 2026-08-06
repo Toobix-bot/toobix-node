@@ -1,0 +1,4 @@
+# Toobix Node 2.0 – Keine externen Abhängigkeiten benötigt!
+# Das Backend nutzt ausschließlich Python Standard Library.
+# Die folgenden Pakete sind nur für Tests und optionales Produktions-Deployment:
+pytest>=7.0

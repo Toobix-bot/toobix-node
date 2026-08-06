@@ -1,38 +1,158 @@
-# Toobix Exchange Node 2.0 – Anleitung für Veröffentlichung & Hosting (0 € Kosten)
+# ⬡ Toobix Node 2.0
 
-Dieses Paket enthält die vollständige, anonymisierte und datenschutzkonforme Webanwendung **Toobix Node 2.0**.
+### Dezentrales Solidaritäts-Netzwerk
 
-## 1. Woraus besteht dieses Paket?
+> **„Alle für alle! (Solidarität statt Isolation)"**
 
-*   `index.html`: Das barrierefreie HTML5-Grundgerüst mit Manifest, Status-Tacho, Tauschbörse, Makro-Explorer, KLR-Chronik und anonymisiertem SOS-Netzwerk.
-*   `style.css`: Das moderne Vanilla CSS Design im Dark Mode / Glassmorphismus-Stil.
-*   `app.js`: Die interaktive JavaScript-Logik für den Slider, das lokale Hinzufügen von Einträgen, die Filterung von Netzwerken und das Rendern der Chronik.
+---
 
-## 2. Wie teste ich es lokal?
+## 🌍 Was ist Toobix Node?
 
-Öffne einfach die Datei `index.html` in deinem Browser (z.B. per Doppelklick oder per Eingabe von `file:///home/ToobixNode/.gemini/antigravity/scratch/ToobixWeb/index.html` in der Adresszeile).
+Toobix Node ist ein **dezentrales Peer-to-Peer Netzwerk**, das **Mangel** und **Überfluss** zusammenbringt – ohne zentralen Server, ohne Tracking, ohne Kosten.
 
-## 3. Wie mache ich die Seite kostenlos für die ganze Welt öffentlich?
+Jeder Mensch ist ab Geburt Mitglied. Ob du deine Stimme aktivierst, entscheidest du. Kein Zwang. Kein Muss. Aber an alle ist gedacht.
 
-Da die Webseite komplett statisch ist (keine Datenbank-Server erforderlich, 100% datenschutzfreundlich), kann sie über mehrere plattformunabhängige Anbieter **dauerhaft kostenlos** gehostet werden:
+### Was macht es?
 
-### Option A: Netlify Drop (Einfachste Methode, dauert 30 Sekunden)
-1. Gehe auf [app.netlify.com/drop](https://app.netlify.com/drop).
-2. Ziehe den gesamten Ordner `ToobixWeb` per Drag & Drop in das Browserfenster.
-3. Netlify generiert dir sofort eine kostenlose, SSL-verschlüsselte Webadresse (z.B. `https://toobix-node.netlify.app`).
+| Funktion | Beschreibung |
+|----------|-------------|
+| 🔴 **Mangel melden** | Hilfe benötigt? Trage deinen Bedarf ein. |
+| 🟢 **Überfluss teilen** | Du hast zu viel? Teile es mit anderen. |
+| ⚖️ **Automatisches Matching** | Das System findet passende Angebote für Bedarfe. |
+| 🧠 **Selbstreflexion** | Jeder Node erkennt seine eigenen Stärken und Schwächen. |
+| 🤝 **Peer-Awareness** | Nodes bewerten sich gegenseitig: Lob bei guter Leistung, Kritik bei Problemen. |
+| 🔄 **P2P-Synchronisation** | Daten werden direkt zwischen Nodes ausgetauscht – kein zentraler Server. |
+| 🏥 **Echte Hilfsangebote** | Verifizierte Organisationen (Tafel, Kältebus, TelefonSeelsorge etc.) sind vorinstalliert. |
 
-### Option B: GitHub Pages (Ideal für Open Source)
-1. Erstelle ein kostenloses Repository auf GitHub.
-2. Lade `index.html`, `style.css` und `app.js` hoch.
-3. Aktiviere *GitHub Pages* in den Repository-Einstellungen. Die Seite ist unter `https://dein-name.github.io/toobix-node` erreichbar.
+---
 
-### Option C: Vercel / Render
-Funktioniert genauso einfach über Import des Ordners oder Repositories.
+## 🚀 Schnellstart
 
-## 4. Datenschutz & Sicherheit
+```bash
+# Klonen
+git clone https://github.com/Toobix-bot/toobix-node.git
+cd toobix-node
 
-*   **Keine Klarnamen:** Alle vertraulichen Personenbezüge wurden anonymisiert.
-*   **Keine Cookies / Kein Tracking:** Es werden keinerlei personenbezogene Daten gesammelt oder verarbeitet.
-*   **Keine externen Server-Abhängigkeiten:** Keine externen Analytics-Skripte.
+# Backend starten (keine externen Abhängigkeiten nötig!)
+python3 -m app.main
 
-Viel Erfolg beim Verbinden von Mangel, Gleichgewicht und Überfluss!
+# In einem zweiten Terminal: Front-End starten
+python3 -m http.server 8080
+
+# Browser öffnen
+# Backend API: http://localhost:8000/api/health
+# Front-End:   http://localhost:8080
+```
+
+### Voraussetzungen
+
+- Python 3.10+
+- Kein Framework nötig – 100% Python Standard Library
+
+---
+
+## 🌐 P2P-Netzwerk aufbauen
+
+```bash
+# Zweiten Node starten
+PORT=8001 DB_PATH=node2.db python3 -m app.main
+
+# Nodes verbinden
+curl -X POST http://localhost:8000/api/peers/register \
+  -H "Content-Type: application/json" \
+  -d '{"peer_url":"http://127.0.0.1:8001"}'
+```
+
+Sobald verbunden, synchronisieren sich alle Einträge automatisch. Jeder Node bewertet seine Peers mit **Praise-Tokens** (👍) und **Criticism-Logs** (⚠️).
+
+---
+
+## 🐳 Docker
+
+```bash
+# Einzelner Container
+docker build -t toobix-node .
+docker run -d -p 8000:8000 -v toobix-data:/data toobix-node
+
+# 3-Node-Netzwerk
+docker-compose up -d
+```
+
+---
+
+## 📡 API-Endpunkte
+
+| Methode | Pfad | Beschreibung |
+|---------|------|-------------|
+| `GET` | `/api/health` | Node-Status |
+| `GET` | `/api/reflection` | Selbstreflexion (Mangel/Überfluss/Harmonie) |
+| `GET/POST` | `/api/scarcity` | Mangel-Einträge (Bedarfe) |
+| `GET/POST` | `/api/abundance` | Überfluss-Einträge (Angebote) |
+| `POST` | `/api/matches` | Matching berechnen |
+| `GET` | `/api/peers` | Verbundene Peers |
+| `POST` | `/api/peers/register` | Neuen Peer registrieren |
+| `GET` | `/api/peers/awareness` | Peer-Bewertungen & Reputation |
+| `POST` | `/api/p2p/sync` | Daten synchronisieren |
+
+---
+
+## 🏥 Vorinstallierte Hilfsangebote
+
+| Organisation | Kategorie | Kontakt |
+|-------------|-----------|---------|
+| Tafel Deutschland e.V. | Nahrung | 030 20059760 |
+| Kältebus Berlin | Unterkunft | 030 690333690 |
+| Bahnhofsmission | Unterkunft | 030 314959-0 |
+| TelefonSeelsorge | Psychologisch | 0800 111 0 111 |
+| Kinder- und Jugendtelefon | Psychologisch | 116 111 |
+| Hilfetelefon Gewalt gegen Frauen | Notfall | 116 016 |
+| Medibüro Berlin | Medizin | 030 6946746 |
+
+---
+
+## 🏗️ Architektur
+
+```
+┌──────────────┐     P2P Sync      ┌──────────────┐
+│  Node 1      │◄──────────────────►│  Node 2      │
+│  :8000       │  Praise/Criticism  │  :8001       │
+│              │                    │              │
+│ Self-Reflect │                    │ Self-Reflect │
+│ Matching     │                    │ Matching     │
+│ SQLite DB    │                    │ SQLite DB    │
+└──────────────┘                    └──────────────┘
+        ▲           ┌──────────────┐         ▲
+        └───────────│  Node 3      │─────────┘
+                    │  :8002       │
+                    └──────────────┘
+```
+
+---
+
+## 🤝 Mitmachen
+
+1. **Fork** dieses Repository
+2. **Starte** deinen eigenen Node
+3. **Verbinde** dich mit dem Netzwerk
+4. **Teile** deine Ressourcen
+
+Jede Hilfe zählt. Jede Stimme zählt. **Alle für alle.**
+
+---
+
+## 📜 Philosophie
+
+> *„Jeder Mensch besitzt einen unantastbaren Wert, eine Stimme sowie individuelle Phasen von Mangel, Gleichgewicht und Überfluss."*
+
+- **Kein Zwang, keine Kosten** – Die Teilnahme ist freiwillig.
+- **Dezentral** – Keine Datenkrake, kein Master-Server.
+- **Transparent** – Jeder Node reflektiert sich selbst und seine Peers.
+- **Solidarisch** – Wer im Überfluss ist, gibt ab. Wer im Mangel ist, empfängt.
+
+---
+
+## 📄 Lizenz
+
+Freie Software. Keine Cookies. Keine Nachverfolgung.
+
+*Einer für alle und alle für einen – bzw. alle für alle statt einer für einen!*
