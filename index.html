@@ -3,265 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Toobix Exchange Node 2.0 – Dezentrale Solidaritäts-Plattform</title>
+    <meta name="description" content="Toobix Node 2.0 – lokaler Konzeptprototyp für solidarischen Austausch ohne Tracking.">
+    <title>Toobix Node 2.0 – Lokaler Solidaritäts-Prototyp</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="background-mesh"></div>
-    
+    <div class="background-mesh" aria-hidden="true"></div>
+
     <header>
         <div class="logo">Toobix <span>Node 2.0</span></div>
-        <nav>
-            <a href="#manifest" class="active">Manifest</a>
-            <a href="#balance">Status-Tacho</a>
-            <a href="#market">Tauschbörse</a>
-            <a href="#knowledge">Wissen</a>
-            <a href="#alliances">Allianzen</a>
-            <a href="#explorer">Makro-Explorer</a>
-            <a href="#chronik">KLR-Chronik</a>
+        <nav aria-label="Hauptnavigation">
+            <a href="#manifest">Konzept</a>
+            <a href="#balance">Status</a>
+            <a href="#market">Lokale Börse</a>
+            <a href="#explorer">Hilfsfelder</a>
+            <a href="#chronik">Entwicklung</a>
             <a href="#emergency" class="sos-link">Akut / SOS</a>
         </nav>
     </header>
 
     <main>
-        <!-- Hero & Manifest Section -->
         <section id="manifest" class="glass-panel hero-panel">
-            <div class="badge">Anonym · Offline-First · Zero Tracking · 100% Freie Software</div>
-            <h1>Das Universelle Solidaritäts-Netzwerk</h1>
-            <p class="hero-text">
-                Jeder Mensch ist ab seiner Geburt vollwertiges Mitglied dieses Netzwerks. Jeder Mensch besitzt einen unantastbaren Wert, eine Stimme sowie individuelle Phasen von <strong>Mangel</strong>, <strong>Gleichgewicht</strong> und <strong>Überfluss</strong>.
-            </p>
+            <div class="badge">Lokaler Prototyp · Keine Cookies · Kein Tracking · MIT-Lizenz</div>
+            <h1>Solidarischer Austausch – klein, lokal und ehrlich</h1>
+            <p class="hero-text">Toobix Node 2.0 erprobt eine einfache Idee: Menschen können zeitweise Unterstützung benötigen, ausgeglichen sein oder etwas abgeben können. Der aktuelle Stand ist eine lokale Browser-Anwendung, noch kein echtes dezentrales Netzwerk.</p>
             <div class="manifest-cards">
-                <div class="m-card">
-                    <h3>1. Kein Zwang, keine Kosten</h3>
-                    <p>Die Aktivierung deines Status ist vollkommen freiwillig. Es gibt keine Registrierungspflicht und keine Speicherung deiner Daten auf fremden Servern.</p>
-                </div>
-                <div class="m-card">
-                    <h3>2. Werte statt Fiat-Geld</h3>
-                    <p>Geld dient hier nicht der Anhäufung, sondern als fiktiver Rechenschieber (Solidar-Credits), um Arbeit, Nahrung, Raum und Zeit transparent gegeneinander abzuwägen.</p>
-                </div>
-                <div class="m-card">
-                    <h3>3. Vom Mangel zum Ausgleich</h3>
-                    <p>Wer im Überfluss ist, gibt ab. Wer im Mangel ist, empfängt. Wer im Gleichgewicht ist, hält die Balance und hilft beim Vermitteln.</p>
-                </div>
+                <article class="m-card"><h3>Freiwilligkeit</h3><p>Kein Zwang, kein Ranking und keine Bewertung des menschlichen Werts.</p></article>
+                <article class="m-card"><h3>Lokale Daten</h3><p>Selbst erstellte Einträge bleiben im Browser dieses Geräts und können gelöscht werden.</p></article>
+                <article class="m-card"><h3>Klare Grenzen</h3><p>Solidar-Credits sind nur ein experimenteller Orientierungspunkt, keine Währung und kein Zahlungsversprechen.</p></article>
             </div>
         </section>
 
-        <!-- Balance Indicator Section -->
         <section id="balance" class="glass-panel">
-            <h2>Mikro-Balance: Mein Aktueller Zustand</h2>
-            <p class="subtitle">Wo stehst du heute? Erfasse deine Kapazitäten ehrlich, um Überlastung oder Ausbeutung zu vermeiden.</p>
-            
+            <h2>Mein aktueller Zustand</h2>
+            <p class="subtitle">Eine persönliche Momentaufnahme – keine Diagnose und keine Leistungsbewertung.</p>
             <div class="tacho-container">
                 <div class="labels">
-                    <span class="mangel">Mangel (Hilfe benötigt)</span>
-                    <span class="balance">Gleichgewicht (Ruhe & Vermittlung)</span>
-                    <span class="ueberfluss">Überfluss (Ressourcen vorhanden)</span>
+                    <span class="mangel">Mangel</span>
+                    <span class="balance">Gleichgewicht</span>
+                    <span class="ueberfluss">Überfluss</span>
                 </div>
-                <input type="range" min="-100" max="100" value="0" class="slider" id="stateSlider">
-                <div class="status-display" id="statusDisplay">
-                    Ich ruhe in mir. Ich bin aufnahmefähig und kann vermitteln.
-                </div>
+                <input type="range" min="-100" max="100" value="0" class="slider" id="stateSlider" aria-label="Aktueller Zustand zwischen Mangel und Überfluss">
+                <div class="status-display" id="statusDisplay" aria-live="polite"></div>
             </div>
         </section>
 
-        <!-- Interactive Market Section -->
         <section id="market" class="glass-panel">
-            <h2>Dezentrale Tauschbörse</h2>
-            <p class="subtitle">Angebote & Bedarfe eintragen und direkt auf lokaler Ebene zusammenführen.</p>
-
-            <!-- Interactive Add Form -->
+            <h2>Lokale Angebots- und Bedarfsliste</h2>
+            <p class="subtitle">Diese Einträge werden ausschließlich im Browser dieses Geräts gespeichert. Keine sensiblen Daten eintragen.</p>
             <div class="add-entry-box">
-                <h3>Neuen Eintrag erstellen (Lokal auf deinem Gerät)</h3>
                 <form id="entryForm" class="form-grid">
-                    <select id="entryType" required>
-                        <option value="offer">Ich biete (Überfluss)</option>
-                        <option value="need">Ich suche (Mangel)</option>
-                    </select>
-                    <input type="text" id="entryTitle" placeholder="Titel (z.B. IT-Ablagehilfe, Schreibtisch)" required>
-                    <input type="text" id="entryDesc" placeholder="Beschreibung & Tauschbedingung" required>
-                    <input type="number" id="entryCredits" placeholder="Wert in Credits (z.B. 10)" required>
-                    <button type="submit" class="submit-btn">+ Eintrag hinzufügen</button>
+                    <label class="sr-only" for="entryType">Art des Eintrags</label>
+                    <select id="entryType" required><option value="offer">Ich biete</option><option value="need">Ich suche</option></select>
+                    <label class="sr-only" for="entryTitle">Titel</label>
+                    <input type="text" id="entryTitle" maxlength="100" placeholder="Titel" required>
+                    <label class="sr-only" for="entryDesc">Beschreibung</label>
+                    <input type="text" id="entryDesc" maxlength="300" placeholder="Beschreibung und Rahmen" required>
+                    <label class="sr-only" for="entryCredits">Orientierungswert</label>
+                    <input type="number" id="entryCredits" min="0" max="100000" step="1" placeholder="SC" required>
+                    <button type="submit" class="submit-btn">Eintrag speichern</button>
                 </form>
+                <button type="button" id="clearEntries" class="secondary-btn">Lokale Einträge löschen</button>
             </div>
-            
-            <div class="board-grid" id="boardGrid">
-                <!-- Offers Column -->
-                <div class="board-column">
-                    <h3>Angebote (Überfluss im Netz)</h3>
-                    <div id="offersList">
-                        <div class="card offer">
-                            <h4>Kaufmännische Struktur & IT-Organisation</h4>
-                            <p>Bürokratie-Hacking, Vorbereitung von Anträgen (SGB II/V/IX), digitales Aufräumen, CLI-Tools.</p>
-                            <div class="price-tag">Wert: 10 Solidar-Credits (SC) / Std.</div>
-                            <div class="tausch-info">Tausche gegen: 2h Schreibtisch-Platz oder warme Mahlzeit</div>
-                        </div>
-                        <div class="card offer">
-                            <h4>Open-Source Skripte & Dokumenten-Vorlagen</h4>
-                            <p>Fertige Vorlagen für Übergabeprotokolle, Zeitbank-Skripte (toobix.py) & Haushalts-KLR.</p>
-                            <div class="price-tag">Wert: 5 SC / Paket</div>
-                            <div class="tausch-info">Kostenfrei für gemeinnützige Vereine & Bedürftige</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Needs Column -->
-                <div class="board-column">
-                    <h3>Gesuche (Mangel im Netz)</h3>
-                    <div id="needsList">
-                        <div class="card need">
-                            <h4>Ruhiger Arbeitsplatz / Raum</h4>
-                            <p>Ungestörter Schreibtisch für 1–2 Stunden täglich zur fokussierten Arbeit.</p>
-                            <div class="price-tag">Biete im Tausch: 20 SC / Tag (IT-/Kaufm. Hilfe)</div>
-                        </div>
-                        <div class="card need">
-                            <h4>Tägliches Frühstück / Verpflegung</h4>
-                            <p>Ein belegtes Brötchen oder einfaches Mittagessen zur Stärkung.</p>
-                            <div class="price-tag">Biete im Tausch: 5 SC / Mahlzeit</div>
-                        </div>
-                        <div class="card need">
-                            <h4>Unterstützung bei Wohnungs- & ABW-Suche</h4>
-                            <p>Kontakte und Begleitung für Ambulant Betreutes Wohnen (ABW) im regionalen Umfeld.</p>
-                            <div class="price-tag">Biete im Tausch: Vollständige IT-Betreuung</div>
-                        </div>
-                    </div>
-                </div>
+            <div class="board-grid">
+                <div class="board-column"><h3>Angebote</h3><div id="offersList"></div></div>
+                <div class="board-column"><h3>Bedarfe</h3><div id="needsList"></div></div>
             </div>
         </section>
 
-        <!-- Macro Regional Explorer Section -->
         <section id="explorer" class="glass-panel">
-            <h2>Makro-Explorer: Lokale & Globale Hilfsnetzwerke</h2>
-            <p class="subtitle">Finde Organisationen, Initiativen und Anlaufstellen nach Region sortiert.</p>
-
+            <h2>Hilfs- und Kooperationsfelder</h2>
+            <p class="subtitle">Beispiele statt verbindlichem Verzeichnis. Konkrete Zuständigkeit und Aktualität müssen vor Ort geprüft werden.</p>
             <div class="filter-controls">
-                <label for="regionFilter">Region wählen:</label>
-                <select id="regionFilter">
-                    <option value="all">Alle Regionen</option>
-                    <option value="local">Regionale Knotenpunkte (Europa)</option>
-                    <option value="national">Deutschland (Bundesweit)</option>
-                    <option value="global">Global / International</option>
-                </select>
+                <label for="regionFilter">Ebene:</label>
+                <select id="regionFilter"><option value="all">Alle</option><option value="local">Regional</option><option value="national">Deutschland</option><option value="global">Global</option></select>
             </div>
-
-            <div class="explorer-grid" id="explorerGrid">
-                <!-- Data populated dynamically via app.js -->
-            </div>
+            <div class="explorer-grid" id="explorerGrid"></div>
         </section>
 
-        <!-- Toobix Knowledge & Resources (From Local Node) -->
-        <section id="knowledge" class="glass-panel">
-            <h2>Toobix Wissens-Ressourcen</h2>
-            <p class="subtitle">Lokales Wissen aus dem Toobix-Kern, das hier der Gemeinschaft zur Verfügung gestellt wird.</p>
-            
-            <div class="board-grid">
-                <div class="card offer">
-                    <h4>Bürokratie-Hacking (SGB II, SGB XII)</h4>
-                    <p>Erfahrungswissen zur Navigation durch Jobcenter- und Grundsicherungs-Anträge. Übersetzen von Behördendeutsch in klare Handlungsanweisungen.</p>
-                </div>
-                <div class="card offer">
-                    <h4>Dokumenten-Landkarten</h4>
-                    <p>Systeme zur Bewältigung von Zettel-Chaos. Aufbau von digitalen und physischen Ablagesystemen für überlastete Menschen und soziale Träger.</p>
-                </div>
-                <div class="card offer">
-                    <h4>Navigation im Gesundheitssystem</h4>
-                    <p>Wissen über Ambulant Betreutes Wohnen (ABW), Soziotherapie, und Eingliederungshilfe. Wie man sich ein stützendes Netzwerk aufbaut.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Alliances & Opposites -->
-        <section id="alliances" class="glass-panel">
-            <h2>Allianzen & Gegensätze</h2>
-            <p class="subtitle">Wir positionieren uns klar: Für Solidarität, gegen algorithmische Ausbeutung.</p>
-            
-            <div class="board-grid">
-                <!-- Positive -->
-                <div class="board-column">
-                    <h3>🟢 Wir unterstützen (Solidarität)</h3>
-                    <div class="card offer">
-                        <h4>TimeOverflow & Commons</h4>
-                        <p>Globale Open-Source-Plattformen für Zeitbanken und Mutual Aid (gegenseitige Hilfe) ohne Finanzkapital.</p>
-                    </div>
-                    <div class="card offer">
-                        <h4>Foodsharing & SoLaWi</h4>
-                        <p>Initiativen, die Lebensmittelrettung und solidarische Landwirtschaft betreiben, anstatt auf Profitmaximierung zu setzen.</p>
-                    </div>
-                </div>
-
-                <!-- Konstruktive Kritik -->
-                <div class="board-column">
-                    <h3>⚪ Konstruktive Kritik (Wachstumspotenzial)</h3>
-                    <div class="card need">
-                        <h4>Profitgetriebene Gig-Economy</h4>
-                        <p>Plattformen, die zwar Arbeit vermitteln, jedoch oft soziale Absicherung und echte Gemeinschaft vermissen lassen. Wir wünschen uns hier mehr Fokus auf den Menschen.</p>
-                    </div>
-                    <div class="card need">
-                        <h4>Zentralisierte Soziale Netzwerke</h4>
-                        <p>Plattformen, die stark auf Datensammlung und Aufmerksamkeits-Ökonomie setzen. Ein dezentraler, privatsphäre-freundlicher Ansatz wäre eine wünschenswerte Alternative.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Transparency Chronicle (KLR Proof of Work) Section -->
         <section id="chronik" class="glass-panel">
-            <h2>Transparenz-Chronik (KLR Proof of Work)</h2>
-            <p class="subtitle">Nachweisbarer Nachweis der am 06.08.2026 erbrachten Arbeitsleistung & Wertschöpfung.</p>
-
-            <div class="summary-box">
-                <div class="sum-card">
-                    <div class="sum-title">Gesamter fiktiver Marktwert</div>
-                    <div class="sum-val">318,50 €</div>
-                </div>
-                <div class="sum-card">
-                    <div class="sum-title">Anteil Individuum (Michas Runway)</div>
-                    <div class="sum-val">159,25 €</div>
-                </div>
-                <div class="sum-card">
-                    <div class="sum-title">Anteil Kollektiv (Gemeinwohl-Code)</div>
-                    <div class="sum-val">159,25 €</div>
-                </div>
-            </div>
-
-            <div class="chronicle-timeline" id="chronicleTimeline">
-                <!-- Populated dynamically via app.js -->
-            </div>
+            <h2>Entwicklungsstand</h2>
+            <p class="subtitle">Was dieser Prototyp tatsächlich leistet – ohne fiktive Marktwert-Aussagen.</p>
+            <div class="chronicle-timeline" id="chronicleTimeline"></div>
         </section>
 
-        <!-- Emergency / SOS Section (Anonymisiert) -->
         <section id="emergency" class="glass-panel alert-panel">
-            <h2>⚠️ Akutes Krisen- & Notfall-Netzwerk</h2>
-            <p>Wenn der Mangel existenzbedrohend wird (drohende Obdachlosigkeit, psychische Krise) oder der Überfluss in gefährliche Übersteuerung kippt. Anonym, kostenfrei, ohne Wertung.</p>
-            
+            <h2>⚠️ Akute Krise oder Gefahr</h2>
+            <p>Diese Demo ersetzt keine professionelle Hilfe. Bei unmittelbarer Gefahr für dich oder andere: <strong>112</strong>. In Deutschland bietet die TelefonSeelsorge anonyme und kostenfreie Gespräche rund um die Uhr.</p>
             <div class="sos-grid">
-                <div class="sos-card">
-                    <h4>TelefonSeelsorge Deutschland</h4>
-                    <p>Rund um die Uhr, anonym & gebührenfrei</p>
-                    <a href="tel:08001110111" class="sos-btn">📞 0800 1110111</a>
-                </div>
-                <div class="sos-card">
-                    <h4>Psychiatrische Akut-Ambulanz (PIA)</h4>
-                    <p>Krisenintervention & Notfallaufnahme</p>
-                    <a href="tel:034204874030" class="sos-btn">📞 034204 87-4030</a>
-                </div>
-                <div class="sos-card">
-                    <h4>Mobiler Krisendienst (Regional)</h4>
-                    <p>Sofortige Unterstützung vor Ort</p>
-                    <a href="tel:015229284112" class="sos-btn">📞 0152 29284112</a>
-                </div>
-                <div class="sos-card">
-                    <h4>Soziotherapeutischer Dienst & ABW</h4>
-                    <p>Hilfe bei drohendem Wohnungsverlust & Behörden</p>
-                    <span class="badge-subtle">Regionale Anbindung vorhanden</span>
-                </div>
+                <article class="sos-card"><h3>Notruf</h3><p>Akute Gefahr oder medizinischer Notfall</p><a href="tel:112" class="sos-btn">📞 112</a></article>
+                <article class="sos-card"><h3>TelefonSeelsorge</h3><p>Anonym, kostenfrei und rund um die Uhr</p><a href="tel:08001110111" class="sos-btn">📞 0800 1110111</a></article>
             </div>
         </section>
     </main>
 
     <footer>
-        <p>Toobix Node 2.0 – Anonymes & Dezentrales Lebens- & Tauschnetzwerk · Freie Software · Keine Cookies · Keine Nachverfolgung</p>
+        <p>Toobix Node 2.0 · lokaler Open-Source-Konzeptprototyp · keine Cookies · keine externen Skripte oder Fonts</p>
+        <p><a href="PRIVACY.md">Datenschutz</a> · <a href="SECURITY.md">Sicherheit</a> · <a href="LICENSE">Lizenz</a></p>
     </footer>
 
     <script src="app.js"></script>
