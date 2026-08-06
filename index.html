@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Toobix Node 2.0 – experimenteller lokaler Prototyp für solidarischen Austausch und optionale Peer-Synchronisation.">
-    <title>Toobix Node 2.0 – Experimenteller Solidaritäts-Node</title>
+    <meta name="description" content="Toobix Node 2.0 – experimenteller lokaler Prototyp, anonymes Selbstbild und offenes Geschenk für solidarische Verbindung.">
+    <title>Toobix Node 2.0 – Solidaritätsbrücke und offenes Geschenk</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="vision.css">
 </head>
 <body>
+    <a class="skip-link" href="#mainContent">Zum Inhalt springen</a>
     <div class="bg-grid" aria-hidden="true"></div>
     <div class="bg-glow bg-glow-1" aria-hidden="true"></div>
     <div class="bg-glow bg-glow-2" aria-hidden="true"></div>
@@ -18,9 +20,10 @@
             <div class="logo"><span class="logo-icon">⬡</span><span class="logo-text">Toobix<span class="logo-accent">Node</span></span></div>
             <nav aria-label="Hauptnavigation">
                 <a href="#hero" class="nav-link active">Start</a>
+                <a href="#meaning" class="nav-link">Haltung</a>
                 <a href="#live-dashboard" class="nav-link">Dashboard</a>
                 <a href="#network" class="nav-link">Peers</a>
-                <a href="#solidarity" class="nav-link">Hilfsdaten</a>
+                <a href="#solidarity" class="nav-link">Hilfe</a>
                 <a href="#exchange" class="nav-link">Austausch</a>
                 <a href="#emergency" class="nav-link sos">SOS</a>
             </nav>
@@ -31,17 +34,18 @@
         </div>
     </header>
 
-    <main>
+    <main id="mainContent">
         <section id="hero" class="hero">
             <div class="hero-content">
-                <div class="hero-badge"><span class="badge-dot"></span>Experimenteller Prototyp · Open Source · lokal zuerst</div>
+                <div class="hero-badge"><span class="badge-dot"></span>Experimenteller Prototyp · anonymes Selbstbild · offenes Geschenk</div>
                 <h1>Alle für alle.</h1>
-                <p class="hero-subtitle">Solidarität statt Isolation.</p>
+                <p class="hero-subtitle">Individualität bewahren. Gemeinschaft ermöglichen. Brücken bauen.</p>
                 <p class="hero-desc">
-                    Toobix Node erprobt, wie lokale Bedarfe und Angebote strukturiert, abgeglichen und optional zwischen ausdrücklich verbundenen Nodes synchronisiert werden können. Der aktuelle Stand ist kein produktives Hilfsnetzwerk, keine medizinische Plattform und keine anonyme Veröffentlichungsumgebung.
+                    Toobix Node ist ein vorsichtiger Schritt in die Öffentlichkeit: ein technischer Prototyp, eine persönliche Haltung ohne Klarnamen und der Versuch, dem Leben etwas Brauchbares zurückzugeben. Das System strukturiert Bedarfe und Angebote und kann sie optional zwischen ausdrücklich verbundenen Nodes synchronisieren. Es ist noch kein produktives Hilfsnetzwerk und kein Versprechen, jedes Problem lösen zu können.
                 </p>
                 <div class="hero-actions">
-                    <a href="#live-dashboard" class="btn btn-primary"><span class="btn-icon">📡</span>Lokales Dashboard</a>
+                    <a href="#meaning" class="btn btn-primary"><span class="btn-icon">🌱</span>Warum TOOBIX existiert</a>
+                    <a href="#live-dashboard" class="btn btn-secondary"><span class="btn-icon">📡</span>Lokales Dashboard</a>
                     <a href="https://github.com/Toobix-bot/toobix-node" target="_blank" rel="noreferrer" class="btn btn-secondary"><span class="btn-icon">⬡</span>Quellcode ansehen</a>
                 </div>
                 <div class="hero-stats" id="heroStats">
@@ -50,6 +54,78 @@
                     <div class="stat"><span class="stat-value" id="statNeeds">--</span><span class="stat-label">Bedarfe</span></div>
                     <div class="stat"><span class="stat-value" id="statHarmony">--</span><span class="stat-label">technische Balance</span></div>
                 </div>
+            </div>
+        </section>
+
+        <section id="meaning" class="section meaning-section">
+            <div class="section-header">
+                <span class="vision-kicker">Ein Selbstbild im Werden</span>
+                <h2>Ein Geschenk an die Außenwelt – ohne sich selbst zu verlieren</h2>
+                <p class="section-subtitle wide-subtitle">
+                    TOOBIX soll nicht beweisen, dass ein Mensch wertvoll ist. Es entsteht, weil menschlicher Wert bereits da ist. Das Projekt übersetzt Erfahrungen, Fragen und Hoffnung in etwas, das andere prüfen, nutzen, kritisieren und weiterbauen dürfen.
+                </p>
+            </div>
+
+            <article class="gift-statement">
+                <span class="gift-symbol" aria-hidden="true">◈</span>
+                <div>
+                    <p class="gift-lead">„Ich habe gesucht, gelernt, gezweifelt und gebaut. TOOBIX ist mein Versuch, dem Leben etwas davon zurückzugeben: Würde, Orientierung, Verbindung und die Möglichkeit, einander zu tragen.“</p>
+                    <p>Die Person hinter dem Projekt bleibt vorerst anonym. Sichtbar werden zuerst die Haltung, der Code und das, was tatsächlich hilfreich sein kann.</p>
+                </div>
+            </article>
+
+            <div class="meaning-grid">
+                <article class="meaning-card">
+                    <span aria-hidden="true">◉</span>
+                    <h3>Individuum</h3>
+                    <p>Eigene Bedürfnisse, Grenzen, Fähigkeiten, Zweifel und Widersprüche dürfen bestehen. Gemeinschaft verlangt keine Selbstauflösung.</p>
+                </article>
+                <article class="meaning-card bridge-card">
+                    <span aria-hidden="true">↔</span>
+                    <h3>Brücke</h3>
+                    <p>Bedarf, Angebot und bestehende Hilfe werden verständlich miteinander verbunden. Gegensätze dürfen sich annähern, ohne künstlich gleichgemacht zu werden.</p>
+                </article>
+                <article class="meaning-card">
+                    <span aria-hidden="true">◎</span>
+                    <h3>Gemeinschaft</h3>
+                    <p>Menschen dürfen empfangen, beitragen und vermitteln. Verantwortung kann geteilt werden, ohne den Eigenwert des Einzelnen zu übergehen.</p>
+                </article>
+            </div>
+
+            <div class="principle-grid">
+                <article><strong>Hilfe vor Eskalation</strong><span>Unterstützung darf beginnen, sobald sie gebraucht wird – nicht erst nach Zusammenbruch oder Krise.</span></article>
+                <article><strong>Freiwilligkeit</strong><span>Helfen, Empfangen, Vermitteln und Veröffentlichen brauchen Einverständnis und klare Grenzen.</span></article>
+                <article><strong>Offenes Weiterbauen</strong><span>Das Projekt ist Einladung statt Dogma: verwenden, prüfen, kritisieren, verbessern und weitergeben.</span></article>
+                <article><strong>Ehrliche Technik</strong><span>Nur vorhandene Funktionen werden versprochen. Grenzen, Risiken und unfertige Teile bleiben sichtbar.</span></article>
+            </div>
+
+            <div class="connection-boundary">
+                <strong>Verbindung ist nicht grenzenlos.</strong>
+                Menschenfeindlichkeit, Gewalt, Zwang und Entwürdigung werden nicht als bloße „Gegenseite“ normalisiert. Annäherung braucht Sicherheit, Würde und Freiwilligkeit für alle Beteiligten.
+            </div>
+
+            <div class="ecosystem-block">
+                <div class="section-header compact-header">
+                    <span class="vision-kicker">ChatGPT-App-Ökosystem</span>
+                    <h2>Eine gemeinsame Richtung, spezialisierte Werkzeuge</h2>
+                    <p class="section-subtitle wide-subtitle">ChatGPT kann als Gesprächs- und Orchestrierungsschicht dienen. Jede verbundene App übernimmt nur die Aufgabe und die Daten, die sie wirklich benötigt.</p>
+                </div>
+                <div class="ecosystem-grid">
+                    <article><span>💬</span><h3>ChatGPT</h3><p>Verstehen, übersetzen, reflektieren und nächste Schritte koordinieren.</p></article>
+                    <article><span>🌐</span><h3>Webseite</h3><p>Öffentliches Selbstbild, Manifest, Projektstatus und zugängliche Oberfläche.</p></article>
+                    <article><span>🐙</span><h3>GitHub</h3><p>Code, Versionen, Reviews, Tests und transparente Entwicklung.</p></article>
+                    <article><span>🗂️</span><h3>Google Drive</h3><p>Privater Knowledge Space für Dokumente, Konzepte und Entscheidungen.</p></article>
+                    <article><span>✅</span><h3>Asana</h3><p>Konkrete Aufgaben, Prioritäten und nachvollziehbare Umsetzung.</p></article>
+                    <article><span>📅</span><h3>Kalender & Gmail</h3><p>Bewusst bestätigte Termine und Kommunikation mit Menschen oder Partnern.</p></article>
+                    <article><span>🔌</span><h3>TOOBIX-App</h3><p>Spätere MCP-Brücke mit kleinen Werkzeugen und klar begrenzten Rechten.</p></article>
+                    <article><span>⬡</span><h3>Lokale Nodes</h3><p>Bedarfe und Angebote lokal verwalten und nur bewusst mit Peers synchronisieren.</p></article>
+                </div>
+                <div class="data-zone-grid">
+                    <article><strong>Öffentlich</strong><span>Manifest, Quellcode, anonyme Haltung und bewusst veröffentlichte Projektstände.</span></article>
+                    <article><strong>Privat</strong><span>Planung, Arbeitsdokumente, Aufgaben und lokale Node-Daten.</span></article>
+                    <article><strong>Sensibel</strong><span>Gesundheit, Klarnamen, Kontakte und Krisendaten bleiben besonders geschützt und werden nicht automatisch veröffentlicht.</span></article>
+                </div>
+                <p class="ecosystem-note">Die direkte ChatGPT-App-Verbindung ist noch nicht umgesetzt. Bis dahin bleiben Übergaben bewusst manuell oder erfolgen über ausdrücklich verbundene und geprüfte Werkzeuge.</p>
             </div>
         </section>
 
@@ -148,8 +224,8 @@
 
         <section id="emergency" class="section section-emergency">
             <div class="section-header">
-                <h2>⚡ Akute Hilfe in Deutschland</h2>
-                <p class="section-subtitle">Diese Seite ersetzt keinen Krisendienst. Bei unmittelbarer Gefahr für dich oder andere: 112.</p>
+                <h2>⚡ Ausnahme: akute Hilfe in Deutschland</h2>
+                <p class="section-subtitle">Der Alltag und frühe Unterstützung stehen im Mittelpunkt. Diese Seite ersetzt keinen Krisendienst. Bei unmittelbarer Gefahr für dich oder andere: 112.</p>
             </div>
             <div class="sos-grid">
                 <article class="sos-card"><div class="sos-icon">🆘</div><h3>Notruf</h3><p>Akute medizinische Gefahr, Feuerwehr oder Rettungsdienst</p><a href="tel:112" class="sos-btn">112</a></article>
@@ -162,8 +238,8 @@
 
     <footer>
         <div class="footer-inner">
-            <p><strong>Toobix Node 2.0</strong> – experimenteller Open-Source-Prototyp</p>
-            <p class="footer-meta"><a href="PRIVACY.md">Datenschutz</a> · <a href="SECURITY.md">Sicherheit</a> · <a href="LICENSE">Lizenz</a> · <a href="https://github.com/Toobix-bot/toobix-node" target="_blank" rel="noreferrer">GitHub</a></p>
+            <p><strong>Toobix Node 2.0</strong> – experimenteller Open-Source-Prototyp, anonymes Selbstbild und offenes Geschenk</p>
+            <p class="footer-meta"><a href="GIFT.md">Geschenk & Haltung</a> · <a href="ECOSYSTEM.md">App-Ökosystem</a> · <a href="PRIVACY.md">Datenschutz</a> · <a href="SECURITY.md">Sicherheit</a> · <a href="LICENSE">Lizenz</a> · <a href="https://github.com/Toobix-bot/toobix-node" target="_blank" rel="noreferrer">GitHub</a></p>
         </div>
     </footer>
 
