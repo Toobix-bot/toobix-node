@@ -1,0 +1,69 @@
+name: Validate static prototype
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Check required files
+        shell: bash
+        run: |
+          set -euo pipefail
+          for file in index.html style.css app.js flyer_solidaritaet.html README.md PRIVACY.md SECURITY.md LICENSE; do
+            test -f "$file" || { echo "Missing required file: $file"; exit 1; }
+          done
+
+      - name: Check JavaScript syntax
+        run: node --check app.js
+
+      - name: Check local HTML references
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          from urllib.parse import urlparse
+
+          class ReferenceParser(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.references = []
+
+              def handle_starttag(self, tag, attrs):
+                  attributes = dict(attrs)
+                  for key in ("href", "src"):
+                      value = attributes.get(key)
+                      if value:
+                          self.references.append((tag, key, value))
+
+          for html_path in (Path("index.html"), Path("flyer_solidaritaet.html")):
+              parser = ReferenceParser()
+              parser.feed(html_path.read_text(encoding="utf-8"))
+
+              for tag, attribute, reference in parser.references:
+                  parsed = urlparse(reference)
+                  if parsed.scheme in {"http", "https"}:
+                      raise SystemExit(
+                          f"External reference is not allowed in {html_path}: {reference}"
+                      )
+                  if parsed.scheme in {"tel", "mailto"} or reference.startswith("#"):
+                      continue
+
+                  target = html_path.parent / parsed.path
+                  if parsed.path and not target.exists():
+                      raise SystemExit(
+                          f"Missing local reference in {html_path}: {reference}"
+                      )
+
+          print("Static references look consistent.")
+          PY
