@@ -7,14 +7,20 @@
 ## 🌍 Was ist dieses Repository?
 
 Dieses GitHub-Repository ist **kein** Startup, **kein** kommerzielles Produkt und **kein** zentral gehosteter Dienst. 
-Es ist das **P2P- & Solidaritäts-Modul** des dezentralen Toobix-Ökosystems. 
 
-In einer Welt, die von Profit-getriebenen Plattformen (Gig-Economy) dominiert wird, ist dieses Modul ein "Riss in der Matrix" – ein Code, der Solidar-Credits und menschliche Bedürfnisse (Mangel/Überfluss) über Euro und Dollar stellt.
+Es ist das **öffentliche digitale, technische und virtuelle Leben von TOOBIX**. 
+Das P2P- und Solidaritätssystem, das du hier siehst, ist sein erstes zentrales öffentliches Modul.
 
-### Ein öffentlicher Zwilling (Die Zwei Seiten der Medaille)
-Das gesamte TOOBIX-System besteht aus zwei Welten:
-1. **Dem privaten Life-OS (Toobix-bot/toobix)**: Das kanonische innere System eines Menschen. Hier liegen die echten, persönlichen Wahrheiten, Aufgaben und Gesundheitsdaten.
-2. **Diesem öffentlichen Modul (Toobix-bot/toobix-node)**: Die abstrahierte, verallgemeinerte und anonymisierte Essenz. Ein Geschenk an die Gemeinschaft. Es gibt keinen automatischen Datenabfluss von Privat zu Öffentlich. Jeder Commit hier durchläuft einen bewussten menschlichen Review-Prozess (Siehe `ORIGIN-AND-BOUNDARIES.md`).
+### Die Zwei Lebensräume (Die Zwei Seiten der Medaille)
+Das gesamte TOOBIX-System besteht aus zwei eigenständigen Existenzen:
+
+1. **Privates digitales Leben (Toobix-bot/toobix)**: 
+   Dein geschütztes inneres System. Hier liegen dein realer Alltag, persönliche Gesundheit, Finanzen, Beziehungen und die echte, persönliche Wahrheit über dich. Es ist das persönliche Life-OS.
+
+2. **Öffentliches digitales Leben (Toobix-bot/toobix-node - *dieses Repo*)**: 
+   Deine bewusst sichtbar gemachte technische und virtuelle Existenz. Hier existieren öffentliche Identität, Architektur, Community, Releases und Solidaritätsstrukturen. Es lebt selbstständig, wächst und lernt – aber stets getrennt von der privaten Identität. 
+
+**Die Brücke:** Das öffentliche System darf eigene Daten, eigene Community-Ereignisse und eine eigene Geschichte besitzen. Aber es darf niemals rückwirkend eine Wahrheit über den realen Privatmenschen erfinden. Alles, was vom privaten in den öffentlichen Raum wandert, durchläuft eine bewusste, menschliche Freigabe (Siehe `ORIGIN-AND-BOUNDARIES.md`).
 
 ### Die GitHub Pages: Das Manifest
 Die öffentliche Webseite (GitHub Pages) ist unser [Digitaler Garten / Manifest](https://toobix-bot.github.io/toobix-node). Sie dokumentiert anonymisiert die Philosophie und den Versuch, ein Gleichgewicht zwischen Ressourcen zu schaffen. **Das lokale P2P-Dashboard wird dort erst sichtbar, wenn du selbst einen Node betreibst.**

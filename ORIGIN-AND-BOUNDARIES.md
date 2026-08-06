@@ -2,8 +2,8 @@
 
 Dieses öffentliche Projekt (`Toobix-bot/toobix-node`) und das private Toobix-System (`Toobix-bot/toobix`) sind zwei Seiten derselben Medaille. Sie teilen dieselbe philosophische DNA, aber **nicht denselben Datenraum**.
 
-## 1. Die Herkunft
-Das öffentliche Toobix-Node Projekt ist die extrahierte, verallgemeinerte und anonymisierte Essenz des privaten Life-OS. Es ist ein freiwilliges Geschenk an die Öffentlichkeit.
+## 1. Die Herkunft und Identität
+Das öffentliche TOOBIX Projekt ist mehr als nur ein Exportbehälter für anonymisierte Fragmente. Es ist **das öffentliche digitale, technische und virtuelle Leben** von TOOBIX. Es geht aus dem privaten Leben hervor, aber darf danach selbst wachsen, lernen und Beziehungen zur Außenwelt bilden (z.B. eigene Releases, Community-Beiträge, Netzwerkzustände).
 
 ## 2. Die Grenzen (The Boundaries)
 * **Kein direkter Datenabgleich:** Es gibt keine automatische Pipeline, die private Lebensdaten, Tasks oder Gesundheitsinformationen aus dem privaten Repo in dieses öffentliche Repo pusht.
