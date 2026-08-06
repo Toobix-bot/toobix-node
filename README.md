@@ -2,7 +2,29 @@
 
 Ein experimenteller Open-Source-Prototyp für lokalen solidarischen Austausch von Bedarfen und Angeboten mit optionaler Synchronisation zwischen ausdrücklich verbundenen Nodes.
 
-> **Alle für alle – aber mit Freiwilligkeit, Datenschutz und klaren technischen Grenzen.**
+> **Alle für alle – Individualität bewahren, Gemeinschaft ermöglichen und Brücken bauen.**
+
+## Bedeutung des Projekts
+
+TOOBIX ist nicht nur Software. Es ist zugleich:
+
+- ein vorsichtiger, vorerst anonymer Schritt in die Öffentlichkeit
+- ein Selbstbild aus Werten, Widersprüchen, Erfahrungen und Hoffnung
+- ein Werkzeug für Bedarfe, Angebote und spätere Vermittlung
+- ein offenes Geschenk, das andere prüfen, nutzen, kritisieren und weiterbauen dürfen
+
+Das Projekt soll nicht beweisen, dass sein Urheber wertvoll ist, und es verspricht nicht, die Welt zu retten. Es versucht, dem Leben etwas Brauchbares zurückzugeben: Würde, Orientierung, Verbindung und die Möglichkeit, einander zu tragen.
+
+Mehr dazu steht in [GIFT.md](GIFT.md).
+
+## Grundhaltung
+
+- Hilfe darf beginnen, sobald sie gebraucht wird – nicht erst nach Eskalation oder Zusammenbruch.
+- Mangel und Überfluss beschreiben Situationen, nicht den Wert eines Menschen.
+- Individualität darf in Gemeinschaft bestehen bleiben.
+- Gemeinschaft darf tragen, ohne Menschen zu vereinnahmen.
+- Gegensätze können sich annähern, aber Gewalt, Zwang und Entwürdigung werden nicht normalisiert.
+- Technik muss ehrlich zeigen, was bereits funktioniert und was noch fehlt.
 
 ## Projektstatus
 
@@ -15,6 +37,7 @@ Toobix Node 2.0 ist derzeit **kein produktives öffentliches Hilfsnetzwerk**. De
 - technische Node- und Peer-Zustandsanzeigen
 - eine importierbare Seed-Datensammlung für Hilfskategorien
 - Tests für Backend, Pipeline und lokales Mehr-Node-Verhalten
+- eine öffentliche Haltungs-, Selbstbild- und Ökosystemschicht
 
 Noch nicht belastbar umgesetzt sind unter anderem:
 
@@ -22,8 +45,24 @@ Noch nicht belastbar umgesetzt sind unter anderem:
 - Identitäts- oder Berechtigungsmanagement für mehrere Nutzer
 - Moderation und Missbrauchsschutz
 - verlässliche Löschung bereits synchronisierter Daten auf fremden Nodes
+- Vermittlung als eigenes technisches Datenmodell
+- direkte ChatGPT-App- oder MCP-Anbindung
 - redaktionell dauerhaft gepflegte Hilfsdaten
 - produktionsreifes Deployment, Monitoring und Backup
+
+## ChatGPT- und App-Ökosystem
+
+ChatGPT kann später als Gesprächs- und Orchestrierungsschicht dienen. Spezialisierte Apps behalten klar begrenzte Rollen:
+
+- GitHub für Code, Versionierung, Reviews und Tests
+- Google Drive als privater `_TOOBIX_KNOWLEDGE_SPACE`
+- Asana für konkrete Aufgaben und Prioritäten
+- Google Calendar für bestätigte Termine und Reviews
+- Gmail für bewusst freigegebene Außenkommunikation
+- eine eigene TOOBIX-App als spätere MCP-Brücke
+- lokale Nodes für Bedarfe, Angebote, Matching und bewusst bestätigte Peer-Synchronisation
+
+Öffentliche, private und sensible Daten bleiben getrennt. Die Zielarchitektur und Freigaberegeln stehen in [ECOSYSTEM.md](ECOSYSTEM.md).
 
 ## Datenschutz in einem Satz
 
@@ -128,6 +167,14 @@ GitHub Actions führt diese Prüfungen bei Pushes und Pull Requests automatisch 
 | `TOOBIX_MAX_BODY_BYTES` | maximale JSON-Anfragegröße | 1 MiB |
 | `TOOBIX_MAX_SYNC_ENTRIES` | maximale Einträge pro Sync | 500 |
 | `TOOBIX_ALLOW_PRIVATE_PEERS` | private/Loopback-Peers erlauben | `1` |
+
+## Zentrale Dokumente
+
+- [GIFT.md](GIFT.md) – Geschenk, anonymes Selbstbild und ethische Haltung
+- [ECOSYSTEM.md](ECOSYSTEM.md) – ChatGPT-App-Ökosystem, Datenzonen und Freigaberegeln
+- [PRIVACY.md](PRIVACY.md) – Datenschutzgrenzen
+- [SECURITY.md](SECURITY.md) – Sicherheitsmodell und Meldung von Schwachstellen
+- [PROJECT.md](PROJECT.md) – technischer Projektstand und Entwicklung
 
 ## Lizenz
 
