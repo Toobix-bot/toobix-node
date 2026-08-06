@@ -34,7 +34,7 @@
     },
     "items": {
       "type": "array",
-      "description": "Liste der zu veröffentlichenden Einträge (Bedarfe/Angebote)",
+      "description": "Liste der zu veröffentlichenden Einträge (Prinzipien, Architektur, Bedarfe, Angebote, etc.)",
       "items": {
         "type": "object",
         "properties": {

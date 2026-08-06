@@ -93,11 +93,14 @@ function setConnectionStatus(online) {
 
     // Toggle local node view
     const localNodeView = document.getElementById('local-node-view');
+    const localNavLinks = document.querySelectorAll('.local-nav-link');
     if (localNodeView) {
         if (online) {
             localNodeView.style.display = 'block';
+            localNavLinks.forEach(link => link.style.display = 'inline-block');
         } else {
             localNodeView.style.display = 'none';
+            localNavLinks.forEach(link => link.style.display = 'none');
         }
     }
 }
