@@ -1,18 +1,15 @@
-# Toobix Node 2.0 – Docker Compose für ein lokales P2P-Netzwerk
-# Startet 3 Nodes, die sich automatisch verbinden.
-# Motto: "Alle für alle! (Solidarität statt Isolation)"
-
-version: '3.8'
-
 services:
   node1:
     build: .
     container_name: toobix-node-1
     ports:
-      - "8000:8000"
+      - "127.0.0.1:8000:8000"
     environment:
-      - PORT=8000
-      - DB_PATH=/data/node1.db
+      PORT: 8000
+      DB_PATH: /data/node1.db
+      TOOBIX_API_TOKEN: ${TOOBIX_API_TOKEN:?Set TOOBIX_API_TOKEN before starting}
+      TOOBIX_ALLOWED_ORIGINS: http://localhost:8080,http://127.0.0.1:8080
+      TOOBIX_ALLOW_PRIVATE_PEERS: "1"
     volumes:
       - node1-data:/data
     restart: unless-stopped
@@ -21,10 +18,13 @@ services:
     build: .
     container_name: toobix-node-2
     ports:
-      - "8001:8000"
+      - "127.0.0.1:8001:8000"
     environment:
-      - PORT=8000
-      - DB_PATH=/data/node2.db
+      PORT: 8000
+      DB_PATH: /data/node2.db
+      TOOBIX_API_TOKEN: ${TOOBIX_API_TOKEN:?Set TOOBIX_API_TOKEN before starting}
+      TOOBIX_ALLOWED_ORIGINS: http://localhost:8080,http://127.0.0.1:8080
+      TOOBIX_ALLOW_PRIVATE_PEERS: "1"
     volumes:
       - node2-data:/data
     restart: unless-stopped
@@ -33,10 +33,13 @@ services:
     build: .
     container_name: toobix-node-3
     ports:
-      - "8002:8000"
+      - "127.0.0.1:8002:8000"
     environment:
-      - PORT=8000
-      - DB_PATH=/data/node3.db
+      PORT: 8000
+      DB_PATH: /data/node3.db
+      TOOBIX_API_TOKEN: ${TOOBIX_API_TOKEN:?Set TOOBIX_API_TOKEN before starting}
+      TOOBIX_ALLOWED_ORIGINS: http://localhost:8080,http://127.0.0.1:8080
+      TOOBIX_ALLOW_PRIVATE_PEERS: "1"
     volumes:
       - node3-data:/data
     restart: unless-stopped

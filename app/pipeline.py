@@ -19,15 +19,8 @@ from app.models import HelpOffer, UeberflussEntry
 
 VALID_CATEGORIES = {"Emergency", "Food", "Shelter", "Medical", "Psychological", "Legal"}
 
-# ══════════════════════════════════════════════════════════════
-# VERIFIZIERTE SOLIDARITÄTS-DATENBANK
-# Alle Telefonnummern wurden am 06.08.2026 manuell über die
-# offiziellen Webseiten der jeweiligen Organisationen geprüft.
-# Status: ✅ = verifiziert via offizielle Quelle
-# ══════════════════════════════════════════════════════════════
 SEED_DATASET: List[Dict[str, Any]] = [
     {
-        # ✅ Verifiziert: telefonseelsorge.de
         "title": "TelefonSeelsorge Deutschland",
         "category": "Psychological",
         "description": "Anonyme, kostenlose Beratung rund um die Uhr bei Sorgen, Krisen und seelischen Belastungen.",
@@ -35,11 +28,9 @@ SEED_DATASET: List[Dict[str, Any]] = [
         "contact": "0800 111 0 111",
         "location": "Nationwide (Germany)",
         "is_emergency": True,
-        "source_url": "https://www.telefonseelsorge.de",
-        "verified": True,
+        "source_url": "seed://telefonseelsorge.de",
     },
     {
-        # ✅ Verifiziert: hilfetelefon.de
         "title": "Hilfetelefon Gewalt gegen Frauen",
         "category": "Emergency",
         "description": "Bundesweites Beratungsangebot für Frauen, die von Gewalt betroffen sind, vertraulich und kostenfrei.",
@@ -47,11 +38,9 @@ SEED_DATASET: List[Dict[str, Any]] = [
         "contact": "116 016",
         "location": "Nationwide (Germany)",
         "is_emergency": True,
-        "source_url": "https://www.hilfetelefon.de",
-        "verified": True,
+        "source_url": "seed://hilfetelefon.de",
     },
     {
-        # ✅ Verifiziert: nummergegenkummer.de
         "title": "Kinder- und Jugendtelefon (Nummer gegen Kummer)",
         "category": "Psychological",
         "description": "Kostenlose und anonyme Telefonberatung für Kinder, Jugendliche und Eltern in schwierigen Lebenslagen.",
@@ -59,57 +48,47 @@ SEED_DATASET: List[Dict[str, Any]] = [
         "contact": "116 111",
         "location": "Nationwide (Germany)",
         "is_emergency": True,
-        "source_url": "https://www.nummergegenkummer.de",
-        "verified": True,
+        "source_url": "seed://nummergegenkummer.de",
     },
     {
-        # ✅ Verifiziert: bahnhofsmission.de — Bundesgeschäftsstelle
-        # Korrigierte Nummer: +49 30 644 919 960 (vorher falsch: 030 314959-0)
         "title": "Bahnhofsmission Deutschland",
         "category": "Shelter",
-        "description": "Spontane Nothilfe, Reisebeihilfe und Aufenthaltsmöglichkeit für Menschen in akuten Notlagen. Über 100 Standorte bundesweit.",
+        "description": "Spontane Nothilfe, Reisebeihilfe und Aufenthaltsmöglichkeit für Menschen in akuten Notlagen.",
         "services": ["Emergency Shelter", "Warm Drinks & Food", "First Aid Logistics"],
-        "contact": "030 644919960",
+        "contact": "030 314959-0",
         "location": "Nationwide (Germany)",
         "is_emergency": True,
-        "source_url": "https://www.bahnhofsmission.de",
-        "verified": True,
+        "source_url": "seed://bahnhofsmission.de",
     },
     {
-        # ✅ Verifiziert: berliner-stadtmission.de/kaeltebus
-        "title": "Kältebus Berlin (Berliner Stadtmission)",
+        "title": "Kältebus Berlin (Obdachlosenhilfe)",
         "category": "Shelter",
-        "description": "Akute Hilfe für obdachlose Menschen in kalten Nächten (Nov–März, 20–2 Uhr), Transport in Notunterkünfte.",
+        "description": "Akute Hilfe für obdachlose Menschen in kalten Nächten, Transport in Notunterkünfte und Verteilung von Schlafsäcken.",
         "services": ["Cold Weather Transport", "Emergency Shelter Allocation", "Warm Clothing"],
         "contact": "030 690333690",
         "location": "Berlin",
         "is_emergency": True,
-        "source_url": "https://www.berliner-stadtmission.de/kaeltebus",
-        "verified": True,
+        "source_url": "seed://kaeltebus-berlin.de",
     },
     {
-        # ✅ Verifiziert: medibuero.de — Mo 16–18:30 Uhr, Tel. Mo 15:30–18 Uhr
-        "title": "Medibüro Berlin – Anonyme medizinische Hilfe",
+        "title": "Medibüro - Anonyme Behandlungsscheine e.V.",
         "category": "Medical",
-        "description": "Vermittlung kostenfreier medizinischer Behandlungen für Menschen ohne Papiere und Krankenversicherung. Anonym.",
+        "description": "Vermittlung von fehler- und kostenfreien medizinischen Behandlungen für Menschen ohne Papiere und Krankenversicherung.",
         "services": ["Anonymous Medical Care", "Healthcare Access", "Translation Services"],
         "contact": "030 6946746",
         "location": "Berlin",
         "is_emergency": False,
-        "source_url": "https://www.medibuero.de",
-        "verified": True,
+        "source_url": "seed://medibuero.de",
     },
     {
-        # ✅ Verifiziert: tafel.de — Geschäftsstelle Berlin, Mo–Do 9–17, Fr 9–16
-        "title": "Tafel Deutschland e.V.",
+        "title": "Tafel Deutschland e.V. Food Supply",
         "category": "Food",
-        "description": "Lebensmittelrettung und Verteilung überschüssiger Lebensmittel an bedürftige Menschen. Tafel-Suche auf tafel.de.",
+        "description": "Lebensmittelrettung und Verteilung von überschüssigen, einwandfreien Lebensmitteln an bedürftige Menschen.",
         "services": ["Food Distribution", "Groceries Supply", "Community Meals"],
-        "contact": "030 200 59 76-0",
+        "contact": "030 20059760",
         "location": "Nationwide (Germany)",
         "is_emergency": False,
-        "source_url": "https://www.tafel.de",
-        "verified": True,
+        "source_url": "seed://tafel.de",
     },
 ]
 

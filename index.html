@@ -3,323 +3,243 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Toobix Node 2.0 – Dezentrales Solidaritäts-Netzwerk | Alle für alle!</title>
-    <meta name="description" content="Toobix Node 2.0: Ein dezentrales Peer-to-Peer Solidaritäts-Netzwerk. Mangel melden, Überfluss teilen, Gleichgewicht finden. Alle für alle!">
+    <meta name="description" content="Toobix Node 2.0 – experimenteller lokaler Prototyp, anonymes Selbstbild und offenes Geschenk für solidarische Verbindung.">
+    <title>Toobix Node 2.0 – Solidaritätsbrücke und offenes Geschenk</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="vision.css">
 </head>
 <body>
-    <div class="bg-grid"></div>
-    <div class="bg-glow bg-glow-1"></div>
-    <div class="bg-glow bg-glow-2"></div>
-    <div class="bg-glow bg-glow-3"></div>
+    <a class="skip-link" href="#mainContent">Zum Inhalt springen</a>
+    <div class="bg-grid" aria-hidden="true"></div>
+    <div class="bg-glow bg-glow-1" aria-hidden="true"></div>
+    <div class="bg-glow bg-glow-2" aria-hidden="true"></div>
+    <div class="bg-glow bg-glow-3" aria-hidden="true"></div>
 
     <header id="mainHeader">
         <div class="header-inner">
-            <div class="logo">
-                <span class="logo-icon">⬡</span>
-                <span class="logo-text">Toobix<span class="logo-accent">Node</span></span>
-            </div>
-            <nav>
+            <div class="logo"><span class="logo-icon">⬡</span><span class="logo-text">Toobix<span class="logo-accent">Node</span></span></div>
+            <nav aria-label="Hauptnavigation">
                 <a href="#hero" class="nav-link active">Start</a>
-                <a href="#live-dashboard" class="nav-link">Live Dashboard</a>
-                <a href="#network" class="nav-link">Netzwerk</a>
-                <a href="#solidarity" class="nav-link">Hilfsangebote</a>
-                <a href="#exchange" class="nav-link">Tauschbörse</a>
-                <a href="#emergency" class="nav-link sos">⚡ SOS</a>
+                <a href="#meaning" class="nav-link">Haltung</a>
+                <a href="#live-dashboard" class="nav-link">Dashboard</a>
+                <a href="#network" class="nav-link">Peers</a>
+                <a href="#solidarity" class="nav-link">Hilfe</a>
+                <a href="#exchange" class="nav-link">Austausch</a>
+                <a href="#emergency" class="nav-link sos">SOS</a>
             </nav>
-            <div class="header-status" id="headerStatus">
+            <div class="header-status" aria-live="polite">
                 <span class="status-dot offline"></span>
-                <span class="status-text">Verbinde...</span>
+                <span class="status-text">Verbinde…</span>
             </div>
         </div>
     </header>
 
-    <main>
-        <!-- Hero Section -->
+    <main id="mainContent">
         <section id="hero" class="hero">
             <div class="hero-content">
-                <div class="hero-badge">
-                    <span class="badge-dot"></span>
-                    Digitaler Garten · Open Source · Solidarität
-                </div>
+                <div class="hero-badge"><span class="badge-dot"></span>Experimenteller Prototyp · anonymes Selbstbild · offenes Geschenk</div>
                 <h1>Alle für alle.</h1>
-                <p class="hero-subtitle">Solidarität statt Isolation. Mangel trifft Überfluss.</p>
+                <p class="hero-subtitle">Individualität bewahren. Gemeinschaft ermöglichen. Brücken bauen.</p>
                 <p class="hero-desc">
-                    Dies ist das Logbuch und die Bauanleitung von <strong>Toobix-bot</strong>. <br>
-                    Kein Startup. Keine Tracker. Keine Gewinne. Nur der Versuch, einen digitalen Raum zu schaffen,
-                    in dem Solidarität und gegenseitige Hilfe (P2P) wieder einen echten Wert bekommen.
+                    Toobix Node ist ein vorsichtiger Schritt in die Öffentlichkeit: ein technischer Prototyp, eine persönliche Haltung ohne Klarnamen und der Versuch, dem Leben etwas Brauchbares zurückzugeben. Das System strukturiert Bedarfe und Angebote und kann sie optional zwischen ausdrücklich verbundenen Nodes synchronisieren. Es ist noch kein produktives Hilfsnetzwerk und kein Versprechen, jedes Problem lösen zu können.
                 </p>
                 <div class="hero-actions">
-                    <a href="#manifest" class="btn btn-secondary">
-                        <span class="btn-icon">📖</span> Das Manifest lesen
-                    </a>
-                    <a href="https://github.com/Toobix-bot/toobix-node" target="_blank" class="btn btn-primary">
-                        <span class="btn-icon">⬡</span> Code / Node herunterladen
-                    </a>
+                    <a href="#meaning" class="btn btn-primary"><span class="btn-icon">🌱</span>Warum TOOBIX existiert</a>
+                    <a href="#live-dashboard" class="btn btn-secondary"><span class="btn-icon">📡</span>Lokales Dashboard</a>
+                    <a href="https://github.com/Toobix-bot/toobix-node" target="_blank" rel="noreferrer" class="btn btn-secondary"><span class="btn-icon">⬡</span>Quellcode ansehen</a>
+                </div>
+                <div class="hero-stats" id="heroStats">
+                    <div class="stat"><span class="stat-value" id="statNodes">--</span><span class="stat-label">lokale Nodes</span></div>
+                    <div class="stat"><span class="stat-value" id="statOffers">--</span><span class="stat-label">Angebote</span></div>
+                    <div class="stat"><span class="stat-value" id="statNeeds">--</span><span class="stat-label">Bedarfe</span></div>
+                    <div class="stat"><span class="stat-value" id="statHarmony">--</span><span class="stat-label">technische Balance</span></div>
                 </div>
             </div>
         </section>
 
-        <!-- Manifesto / Digital Garden -->
-        <section id="manifest" class="section">
+        <section id="meaning" class="section meaning-section">
             <div class="section-header">
-                <h2>🌱 Digitaler Garten & Logbuch</h2>
-                <p class="section-subtitle">Gedanken zur Kosten-Leistungs-Rechnung (KLR) des Lebens.</p>
+                <span class="vision-kicker">Ein Selbstbild im Werden</span>
+                <h2>Ein Geschenk an die Außenwelt – ohne sich selbst zu verlieren</h2>
+                <p class="section-subtitle wide-subtitle">
+                    TOOBIX soll nicht beweisen, dass ein Mensch wertvoll ist. Es entsteht, weil menschlicher Wert bereits da ist. Das Projekt übersetzt Erfahrungen, Fragen und Hoffnung in etwas, das andere prüfen, nutzen, kritisieren und weiterbauen dürfen.
+                </p>
             </div>
-            
-            <div class="network-grid">
-                <div class="dash-card dash-card-full">
-                    <div class="dash-card-header">
-                        <span class="dash-icon">📓</span>
-                        <h3>Eintrag: System-Start (August 2026)</h3>
-                    </div>
-                    <div class="dash-card-body">
-                        <p><strong>Die Philosophie:</strong> In einer Welt, in der alles kommerzialisiert wird, muss es einen Raum geben, der ohne Zwang auskommt. Toobix ist keine App, die du konsumierst. Es ist ein Netzwerk, das du <em>betreibst</em>. Es lebt nur, wenn Menschen entscheiden, ihren eigenen Node (Knotenpunkt) zu starten.</p>
-                        <hr style="opacity: 0.1; margin: 15px 0;">
-                        <p><strong>Heutiger Mangel:</strong> Echte, bedingungslose Verbindungen im digitalen Raum.<br>
-                        <strong>Heutiger Überfluss:</strong> Programmierkenntnisse, Serverkapazität, Zeit für Open-Source.<br>
-                        <strong>Fiktiver Wert dieses Beitrags:</strong> 3.500 Solidar-Credits (Unbezahlbar in Fiat).</p>
-                    </div>
+
+            <article class="gift-statement">
+                <span class="gift-symbol" aria-hidden="true">◈</span>
+                <div>
+                    <p class="gift-lead">„Ich habe gesucht, gelernt, gezweifelt und gebaut. TOOBIX ist mein Versuch, dem Leben etwas davon zurückzugeben: Würde, Orientierung, Verbindung und die Möglichkeit, einander zu tragen.“</p>
+                    <p>Die Person hinter dem Projekt bleibt vorerst anonym. Sichtbar werden zuerst die Haltung, der Code und das, was tatsächlich hilfreich sein kann.</p>
                 </div>
+            </article>
+
+            <div class="meaning-grid">
+                <article class="meaning-card">
+                    <span aria-hidden="true">◉</span>
+                    <h3>Individuum</h3>
+                    <p>Eigene Bedürfnisse, Grenzen, Fähigkeiten, Zweifel und Widersprüche dürfen bestehen. Gemeinschaft verlangt keine Selbstauflösung.</p>
+                </article>
+                <article class="meaning-card bridge-card">
+                    <span aria-hidden="true">↔</span>
+                    <h3>Brücke</h3>
+                    <p>Bedarf, Angebot und bestehende Hilfe werden verständlich miteinander verbunden. Gegensätze dürfen sich annähern, ohne künstlich gleichgemacht zu werden.</p>
+                </article>
+                <article class="meaning-card">
+                    <span aria-hidden="true">◎</span>
+                    <h3>Gemeinschaft</h3>
+                    <p>Menschen dürfen empfangen, beitragen und vermitteln. Verantwortung kann geteilt werden, ohne den Eigenwert des Einzelnen zu übergehen.</p>
+                </article>
+            </div>
+
+            <div class="principle-grid">
+                <article><strong>Hilfe vor Eskalation</strong><span>Unterstützung darf beginnen, sobald sie gebraucht wird – nicht erst nach Zusammenbruch oder Krise.</span></article>
+                <article><strong>Freiwilligkeit</strong><span>Helfen, Empfangen, Vermitteln und Veröffentlichen brauchen Einverständnis und klare Grenzen.</span></article>
+                <article><strong>Offenes Weiterbauen</strong><span>Das Projekt ist Einladung statt Dogma: verwenden, prüfen, kritisieren, verbessern und weitergeben.</span></article>
+                <article><strong>Ehrliche Technik</strong><span>Nur vorhandene Funktionen werden versprochen. Grenzen, Risiken und unfertige Teile bleiben sichtbar.</span></article>
+            </div>
+
+            <div class="connection-boundary">
+                <strong>Verbindung ist nicht grenzenlos.</strong>
+                Menschenfeindlichkeit, Gewalt, Zwang und Entwürdigung werden nicht als bloße „Gegenseite“ normalisiert. Annäherung braucht Sicherheit, Würde und Freiwilligkeit für alle Beteiligten.
+            </div>
+
+            <div class="ecosystem-block">
+                <div class="section-header compact-header">
+                    <span class="vision-kicker">ChatGPT-App-Ökosystem</span>
+                    <h2>Eine gemeinsame Richtung, spezialisierte Werkzeuge</h2>
+                    <p class="section-subtitle wide-subtitle">ChatGPT kann als Gesprächs- und Orchestrierungsschicht dienen. Jede verbundene App übernimmt nur die Aufgabe und die Daten, die sie wirklich benötigt.</p>
+                </div>
+                <div class="ecosystem-grid">
+                    <article><span>💬</span><h3>ChatGPT</h3><p>Verstehen, übersetzen, reflektieren und nächste Schritte koordinieren.</p></article>
+                    <article><span>🌐</span><h3>Webseite</h3><p>Öffentliches Selbstbild, Manifest, Projektstatus und zugängliche Oberfläche.</p></article>
+                    <article><span>🐙</span><h3>GitHub</h3><p>Code, Versionen, Reviews, Tests und transparente Entwicklung.</p></article>
+                    <article><span>🗂️</span><h3>Google Drive</h3><p>Privater Knowledge Space für Dokumente, Konzepte und Entscheidungen.</p></article>
+                    <article><span>✅</span><h3>Asana</h3><p>Konkrete Aufgaben, Prioritäten und nachvollziehbare Umsetzung.</p></article>
+                    <article><span>📅</span><h3>Kalender & Gmail</h3><p>Bewusst bestätigte Termine und Kommunikation mit Menschen oder Partnern.</p></article>
+                    <article><span>🔌</span><h3>TOOBIX-App</h3><p>Spätere MCP-Brücke mit kleinen Werkzeugen und klar begrenzten Rechten.</p></article>
+                    <article><span>⬡</span><h3>Lokale Nodes</h3><p>Bedarfe und Angebote lokal verwalten und nur bewusst mit Peers synchronisieren.</p></article>
+                </div>
+                <div class="data-zone-grid">
+                    <article><strong>Öffentlich</strong><span>Manifest, Quellcode, anonyme Haltung und bewusst veröffentlichte Projektstände.</span></article>
+                    <article><strong>Privat</strong><span>Planung, Arbeitsdokumente, Aufgaben und lokale Node-Daten.</span></article>
+                    <article><strong>Sensibel</strong><span>Gesundheit, Klarnamen, Kontakte und Krisendaten bleiben besonders geschützt und werden nicht automatisch veröffentlicht.</span></article>
+                </div>
+                <p class="ecosystem-note">Die direkte ChatGPT-App-Verbindung ist noch nicht umgesetzt. Bis dahin bleiben Übergaben bewusst manuell oder erfolgen über ausdrücklich verbundene und geprüfte Werkzeuge.</p>
             </div>
         </section>
 
-        <!-- Local Connection Status -->
-        <section class="section" id="node-gate">
-            <div class="dash-card" style="text-align: center; border-color: var(--warning-color);">
-                <div class="dash-card-body">
-                    <h3>⚠️ Du bist nicht mit dem Netzwerk verbunden</h3>
-                    <p style="margin: 15px 0; color: var(--text-secondary);">Um Mangel zu melden, Überfluss zu teilen und das echte P2P-Netzwerk zu nutzen, musst du deinen eigenen Toobix-Node lokal ausführen. Die GitHub Pages sind nur das Schaufenster.</p>
-                    <p style="font-family: monospace; background: var(--bg-card); padding: 10px; border-radius: 4px; display: inline-block;">python3 -m app.main</p>
-                    <p style="margin-top: 15px; font-size: 0.9em;">Starte den Server und aktualisiere diese Seite.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- APP CONTAINER (Hidden by default, shown via JS if local node connects) -->
-        <div id="app-container" style="display: none;">
-
-
-        <!-- Live Dashboard Section -->
         <section id="live-dashboard" class="section">
             <div class="section-header">
-                <h2>📡 Live Dashboard</h2>
-                <p class="section-subtitle">Echtzeitdaten direkt vom laufenden Toobix Node</p>
-                <button class="btn btn-sm btn-refresh" id="btnRefresh" onclick="refreshAll()">
-                    ↻ Aktualisieren
-                </button>
+                <h2>📡 Lokales Dashboard</h2>
+                <p class="section-subtitle">Daten des von dir gestarteten Backends. Bei aktivierter Token-Sicherung fragt der Browser einmal pro Sitzung nach dem Schlüssel.</p>
+                <button class="btn btn-sm btn-refresh" id="btnRefresh" type="button" onclick="refreshAll()">↻ Aktualisieren</button>
+                <button class="btn btn-sm btn-secondary" type="button" onclick="clearToobixApiToken(); refreshAll()">API-Schlüssel zurücksetzen</button>
             </div>
 
             <div class="dashboard-grid">
-                <!-- Node Health -->
-                <div class="dash-card" id="healthCard">
-                    <div class="dash-card-header">
-                        <span class="dash-icon">💚</span>
-                        <h3>Node Status</h3>
-                    </div>
-                    <div class="dash-card-body" id="healthBody">
-                        <div class="loading-pulse">Verbinde mit Backend...</div>
-                    </div>
-                </div>
-
-                <!-- Self Reflection -->
-                <div class="dash-card dash-card-wide" id="reflectionCard">
-                    <div class="dash-card-header">
-                        <span class="dash-icon">🧠</span>
-                        <h3>Selbstreflexion des Nodes</h3>
-                    </div>
-                    <div class="dash-card-body" id="reflectionBody">
-                        <div class="loading-pulse">Lade Reflexionsdaten...</div>
-                    </div>
-                </div>
-
-                <!-- Harmony Meter -->
-                <div class="dash-card" id="harmonyCard">
-                    <div class="dash-card-header">
-                        <span class="dash-icon">⚖️</span>
-                        <h3>Harmonie-Meter</h3>
-                    </div>
-                    <div class="dash-card-body" id="harmonyBody">
-                        <div class="loading-pulse">Berechne Balance...</div>
-                    </div>
-                </div>
+                <article class="dash-card" id="healthCard">
+                    <div class="dash-card-header"><span class="dash-icon">💚</span><h3>Node-Status</h3></div>
+                    <div class="dash-card-body" id="healthBody"><div class="loading-pulse">Verbinde mit Backend…</div></div>
+                </article>
+                <article class="dash-card dash-card-wide" id="reflectionCard">
+                    <div class="dash-card-header"><span class="dash-icon">🧠</span><h3>Technische Selbstbeobachtung</h3></div>
+                    <div class="dash-card-body" id="reflectionBody"><div class="loading-pulse">Lade technische Zustandsdaten…</div></div>
+                </article>
+                <article class="dash-card" id="harmonyCard">
+                    <div class="dash-card-header"><span class="dash-icon">⚖️</span><h3>Balancewert</h3></div>
+                    <div class="dash-card-body" id="harmonyBody"><div class="loading-pulse">Berechne…</div></div>
+                </article>
             </div>
         </section>
 
-        <!-- Network / Peer Awareness Section -->
         <section id="network" class="section">
             <div class="section-header">
-                <h2>🌐 P2P Netzwerk & Peer-Awareness</h2>
-                <p class="section-subtitle">Dezentrale Nodes beobachten, loben und kritisieren sich gegenseitig – transparent und fair.</p>
+                <h2>🌐 Peer-Verbindungen</h2>
+                <p class="section-subtitle">Die Anzeige bewertet ausschließlich technische Erreichbarkeit und Antwortzeiten von bewusst registrierten Nodes – niemals Menschen.</p>
             </div>
-
             <div class="network-grid">
-                <div class="dash-card dash-card-full" id="peerCard">
-                    <div class="dash-card-header">
-                        <span class="dash-icon">🤝</span>
-                        <h3>Verbundene Peers</h3>
-                    </div>
-                    <div class="dash-card-body" id="peerBody">
-                        <div class="loading-pulse">Suche nach Peers...</div>
-                    </div>
-                </div>
-
-                <div class="dash-card dash-card-full" id="praiseCard">
-                    <div class="dash-card-header">
-                        <span class="dash-icon">⭐</span>
-                        <h3>Praise & Criticism Log</h3>
-                    </div>
-                    <div class="dash-card-body" id="praiseBody">
-                        <div class="loading-pulse">Lade Bewertungen...</div>
-                    </div>
-                </div>
+                <article class="dash-card dash-card-full" id="peerCard">
+                    <div class="dash-card-header"><span class="dash-icon">🤝</span><h3>Registrierte Peers</h3></div>
+                    <div class="dash-card-body" id="peerBody"><div class="loading-pulse">Lade Peers…</div></div>
+                </article>
+                <article class="dash-card dash-card-full" id="praiseCard">
+                    <div class="dash-card-header"><span class="dash-icon">⚙️</span><h3>Technische Prüfereignisse</h3></div>
+                    <div class="dash-card-body" id="praiseBody"><div class="loading-pulse">Lade Ereignisse…</div></div>
+                </article>
             </div>
         </section>
 
-        <!-- Solidarity Offers Section -->
         <section id="solidarity" class="section">
             <div class="section-header">
-                <h2>🏥 Echte Hilfsangebote</h2>
-                <p class="section-subtitle">Verifizierte Solidaritäts-Netzwerke, die jetzt helfen. Kostenlos. Anonym. Sofort.</p>
+                <h2>🏥 Hilfsdaten aus der lokalen Datenbank</h2>
+                <p class="section-subtitle">Seed- und importierte Daten sind keine Garantie für Aktualität, Zuständigkeit oder Erreichbarkeit. Vor Nutzung immer bei der offiziellen Stelle prüfen.</p>
             </div>
-
-            <div class="solidarity-grid" id="solidarityGrid">
-                <div class="loading-pulse">Lade Hilfsangebote aus der Datenbank...</div>
-            </div>
+            <div class="solidarity-grid" id="solidarityGrid"><div class="loading-pulse">Lade lokale Datensätze…</div></div>
         </section>
 
-        <!-- Exchange Section -->
         <section id="exchange" class="section">
             <div class="section-header">
-                <h2>🔄 Dezentrale Tauschbörse</h2>
-                <p class="section-subtitle">Mangel melden. Überfluss teilen. Gleichgewicht finden.</p>
+                <h2>🔄 Bedarfe und Angebote</h2>
+                <p class="section-subtitle">Einträge liegen in deiner SQLite-Datenbank und können bei verbundenen Peers synchronisiert werden. Keine vertraulichen Gesundheits-, Ausweis-, Finanz-, Adress- oder Zugangsdaten eintragen.</p>
             </div>
 
             <div class="exchange-grid">
-                <!-- Add New Entry -->
-                <div class="dash-card">
-                    <div class="dash-card-header">
-                        <span class="dash-icon">➕</span>
-                        <h3>Neuen Eintrag erstellen</h3>
-                    </div>
+                <article class="dash-card">
+                    <div class="dash-card-header"><span class="dash-icon">➕</span><h3>Eintrag erstellen</h3></div>
                     <div class="dash-card-body">
                         <form id="entryForm" class="entry-form">
                             <div class="form-group">
                                 <label for="entryType">Typ</label>
-                                <select id="entryType">
-                                    <option value="scarcity">🔴 Ich brauche Hilfe (Mangel)</option>
-                                    <option value="abundance">🟢 Ich biete Hilfe (Überfluss)</option>
-                                </select>
+                                <select id="entryType"><option value="scarcity">🔴 Bedarf</option><option value="abundance">🟢 Angebot</option></select>
                             </div>
-                            <div class="form-group">
-                                <label for="entryTitle">Titel</label>
-                                <input type="text" id="entryTitle" placeholder="z.B. Warme Kleidung benötigt" required>
-                            </div>
+                            <div class="form-group"><label for="entryTitle">Titel</label><input type="text" id="entryTitle" maxlength="120" required></div>
                             <div class="form-group">
                                 <label for="entryCategory">Kategorie</label>
                                 <select id="entryCategory">
-                                    <option value="Kleidung">Kleidung</option>
-                                    <option value="Food">Nahrung</option>
-                                    <option value="Shelter">Unterkunft</option>
-                                    <option value="Medical">Medizin</option>
-                                    <option value="Psychological">Psychologisch</option>
-                                    <option value="Education">Bildung</option>
-                                    <option value="IT">IT & Technik</option>
-                                    <option value="Transport">Transport</option>
-                                    <option value="Legal">Recht & Bürokratie</option>
-                                    <option value="Other">Sonstiges</option>
+                                    <option value="Food">Nahrung</option><option value="Shelter">Unterkunft</option><option value="Medical">Medizin</option><option value="Psychological">Psychosozial</option><option value="Education">Bildung</option><option value="IT">IT & Technik</option><option value="Transport">Transport</option><option value="Legal">Recht & Bürokratie</option><option value="Other">Sonstiges</option>
                                 </select>
                             </div>
-                            <div class="form-group">
-                                <label for="entryDesc">Beschreibung</label>
-                                <textarea id="entryDesc" placeholder="Beschreibe genau, was du brauchst oder anbieten kannst..." rows="3" required></textarea>
-                            </div>
+                            <div class="form-group"><label for="entryDesc">Beschreibung</label><textarea id="entryDesc" maxlength="1000" rows="4" required></textarea></div>
                             <div class="form-row">
-                                <div class="form-group">
-                                    <label for="entryLocation">Ort</label>
-                                    <input type="text" id="entryLocation" placeholder="z.B. Deutschland">
-                                </div>
-                                <div class="form-group">
-                                    <label for="entryContact">Kontakt</label>
-                                    <input type="text" id="entryContact" placeholder="z.B. hilfe@example.org">
-                                </div>
+                                <div class="form-group"><label for="entryLocation">Grober Ort, optional</label><input type="text" id="entryLocation" maxlength="120"></div>
+                                <div class="form-group"><label for="entryContact">Kontakt, optional</label><input type="text" id="entryContact" maxlength="160"></div>
                             </div>
-                            <button type="submit" class="btn btn-primary btn-full">
-                                📤 Eintrag an das Netzwerk senden
-                            </button>
+                            <button type="submit" class="btn btn-primary btn-full">Eintrag lokal speichern</button>
                         </form>
-                        <div id="formFeedback" class="form-feedback"></div>
+                        <div id="formFeedback" class="form-feedback" aria-live="polite"></div>
                     </div>
-                </div>
+                </article>
 
-                <!-- Current Scarcity -->
-                <div class="dash-card">
-                    <div class="dash-card-header">
-                        <span class="dash-icon">🔴</span>
-                        <h3>Aktuelle Bedarfe (Mangel)</h3>
-                    </div>
-                    <div class="dash-card-body entry-list" id="scarcityList">
-                        <div class="loading-pulse">Lade Mangel-Einträge...</div>
-                    </div>
-                </div>
-
-                <!-- Current Abundance -->
-                <div class="dash-card">
-                    <div class="dash-card-header">
-                        <span class="dash-icon">🟢</span>
-                        <h3>Aktuelle Angebote (Überfluss)</h3>
-                    </div>
-                    <div class="dash-card-body entry-list" id="abundanceList">
-                        <div class="loading-pulse">Lade Überfluss-Einträge...</div>
-                    </div>
-                </div>
+                <article class="dash-card">
+                    <div class="dash-card-header"><span class="dash-icon">🔴</span><h3>Bedarfe</h3></div>
+                    <div class="dash-card-body entry-list" id="scarcityList"><div class="loading-pulse">Lade…</div></div>
+                </article>
+                <article class="dash-card">
+                    <div class="dash-card-header"><span class="dash-icon">🟢</span><h3>Angebote</h3></div>
+                    <div class="dash-card-body entry-list" id="abundanceList"><div class="loading-pulse">Lade…</div></div>
+                </article>
             </div>
         </section>
 
-        <!-- Emergency Section -->
         <section id="emergency" class="section section-emergency">
             <div class="section-header">
-                <h2>⚡ Akutes Krisen- & Notfall-Netzwerk</h2>
-                <p class="section-subtitle">Wenn der Mangel existenzbedrohend wird. Anonym, kostenfrei, ohne Wertung. Sofort.</p>
+                <h2>⚡ Ausnahme: akute Hilfe in Deutschland</h2>
+                <p class="section-subtitle">Der Alltag und frühe Unterstützung stehen im Mittelpunkt. Diese Seite ersetzt keinen Krisendienst. Bei unmittelbarer Gefahr für dich oder andere: 112.</p>
             </div>
-
             <div class="sos-grid">
-                <div class="sos-card">
-                    <div class="sos-icon">📞</div>
-                    <h4>TelefonSeelsorge Deutschland</h4>
-                    <p>Rund um die Uhr, anonym & gebührenfrei</p>
-                    <a href="tel:08001110111" class="sos-btn">0800 111 0 111</a>
-                </div>
-                <div class="sos-card">
-                    <div class="sos-icon">🏥</div>
-                    <h4>Hilfetelefon Gewalt gegen Frauen</h4>
-                    <p>24/7, mehrsprachig, barrierefrei</p>
-                    <a href="tel:116016" class="sos-btn">116 016</a>
-                </div>
-                <div class="sos-card">
-                    <div class="sos-icon">👶</div>
-                    <h4>Kinder- und Jugendtelefon</h4>
-                    <p>Kostenlos, anonym, für junge Menschen</p>
-                    <a href="tel:116111" class="sos-btn">116 111</a>
-                </div>
-                <div class="sos-card">
-                    <div class="sos-icon">🆘</div>
-                    <h4>Allgemeiner Notruf</h4>
-                    <p>Polizei, Feuerwehr, Rettungsdienst</p>
-                    <a href="tel:112" class="sos-btn">112</a>
-                </div>
+                <article class="sos-card"><div class="sos-icon">🆘</div><h3>Notruf</h3><p>Akute medizinische Gefahr, Feuerwehr oder Rettungsdienst</p><a href="tel:112" class="sos-btn">112</a></article>
+                <article class="sos-card"><div class="sos-icon">📞</div><h3>TelefonSeelsorge</h3><p>Tag und Nacht, anonym und kostenfrei</p><a href="tel:116123" class="sos-btn">116 123</a></article>
+                <article class="sos-card"><div class="sos-icon">🛡️</div><h3>Hilfetelefon Gewalt gegen Frauen</h3><p>Rund um die Uhr, anonym, mehrsprachig und kostenfrei</p><a href="tel:116016" class="sos-btn">116 016</a></article>
+                <article class="sos-card"><div class="sos-icon">🧒</div><h3>Nummer gegen Kummer</h3><p>Kinder- und Jugendtelefon, Montag bis Samstag 14–20 Uhr</p><a href="tel:116111" class="sos-btn">116 111</a></article>
             </div>
         </section>
-        </div> <!-- End of app-container -->
     </main>
 
     <footer>
         <div class="footer-inner">
-            <p><strong>Toobix Node 2.0</strong> – Dezentrales Solidaritäts-Netzwerk</p>
-            <p class="footer-motto">„Einer für alle und alle für einen – bzw. alle für alle statt einer für einen!"</p>
-            <p class="footer-meta">Freie Software · Keine Cookies · Keine Nachverfolgung · 
-                <a href="https://github.com/Toobix-bot/toobix-node" target="_blank">GitHub</a>
-            </p>
+            <p><strong>Toobix Node 2.0</strong> – experimenteller Open-Source-Prototyp, anonymes Selbstbild und offenes Geschenk</p>
+            <p class="footer-meta"><a href="GIFT.md">Geschenk & Haltung</a> · <a href="ECOSYSTEM.md">App-Ökosystem</a> · <a href="PRIVACY.md">Datenschutz</a> · <a href="SECURITY.md">Sicherheit</a> · <a href="LICENSE">Lizenz</a> · <a href="https://github.com/Toobix-bot/toobix-node" target="_blank" rel="noreferrer">GitHub</a></p>
         </div>
     </footer>
 

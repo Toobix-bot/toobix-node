@@ -1,0 +1,104 @@
+name: Validate
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip && python -m pip install -r requirements.txt
+      - name: Compile Python sources
+        run: python -m compileall -q app
+      - name: Run backend tests
+        run: python -m pytest -q test_backend.py
+      - name: Run pipeline verification
+        run: python test_pipeline.py
+
+  p2p:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+          cache: pip
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+      - name: Run local two-node test
+        run: bash test_p2p.sh
+
+  frontend-and-hygiene:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Check JavaScript syntax
+        run: node --check app.js
+      - name: Check required public files
+        run: |
+          for file in index.html style.css vision.css app.js README.md GIFT.md ECOSYSTEM.md LICENSE PRIVACY.md SECURITY.md; do
+            test -f "$file" || { echo "Missing required file: $file"; exit 1; }
+          done
+      - name: Check local HTML references
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          from urllib.parse import urlparse
+
+          class ReferenceParser(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.references = []
+
+              def handle_starttag(self, tag, attrs):
+                  attributes = dict(attrs)
+                  for key in ("href", "src"):
+                      value = attributes.get(key)
+                      if value:
+                          self.references.append(value)
+
+          for html_path in (Path("index.html"), Path("flyer_solidaritaet.html")):
+              parser = ReferenceParser()
+              parser.feed(html_path.read_text(encoding="utf-8"))
+              for reference in parser.references:
+                  parsed = urlparse(reference)
+                  if parsed.scheme or reference.startswith("#"):
+                      continue
+                  target = html_path.parent / parsed.path
+                  if parsed.path and not target.exists():
+                      raise SystemExit(f"Missing local reference in {html_path}: {reference}")
+
+          print("Static references look consistent.")
+          PY
+      - name: Reject generated Python bytecode
+        run: |
+          if git ls-files | grep -E '(^|/)__pycache__/|\.py[co]$'; then
+            echo "Generated Python bytecode must not be committed."
+            exit 1
+          fi
+      - name: Reject external font dependency
+        run: |
+          if grep -R "fonts.googleapis.com" -- index.html style.css vision.css app.js; then
+            echo "External Google Fonts dependency found."
+            exit 1
+          fi
+      - name: Require project policy files
+        run: test -f LICENSE && test -f PRIVACY.md && test -f SECURITY.md && test -f GIFT.md && test -f ECOSYSTEM.md

@@ -1,4 +1,6 @@
-# Toobix Node 2.0 – Keine externen Abhängigkeiten benötigt!
-# Das Backend nutzt ausschließlich Python Standard Library.
-# Die folgenden Pakete sind nur für Tests und optionales Produktions-Deployment:
-pytest>=7.0
+# Runtime dependencies used by app/pipeline.py
+requests>=2.32,<3
+beautifulsoup4>=4.12,<5
+
+# Test runner
+pytest>=7,<9

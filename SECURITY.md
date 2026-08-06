@@ -1,27 +1,42 @@
-# Sicherheitsrichtlinien (Security Policy)
+# Sicherheit
 
-Toobix Node 2.0 ist ein Open-Source-Projekt, das sich noch in der Prototyp-Phase befindet. Wir nehmen Sicherheit ernst, aber als dezentrales Netzwerk ohne zentrale Moderation gibt es bestimmte Risiken, derer sich jeder Betreiber eines Nodes bewusst sein muss.
+## Unterstützter Stand
 
-## Unterstützte Versionen
+Toobix Node 2.0 ist ein früher Prototyp und derzeit nicht für unkontrollierten öffentlichen Betrieb oder sensible personenbezogene Daten freigegeben.
 
-| Version | Unterstützt |
-| ------- | ------------------ |
-| >= 2.0.0 | :white_check_mark: |
-| < 2.0.0  | :x:                |
+## Sichere Grundeinstellungen
 
-## Schwachstellen melden
+- Das Backend bindet standardmäßig nur an `127.0.0.1`.
+- Ein Bind an andere Interfaces erfordert `TOOBIX_API_TOKEN`.
+- Browser-Zugriffe sind auf konfigurierte Origins beschränkt.
+- JSON-Anfragen und Peer-Antworten besitzen Größenlimits.
+- Peer-URLs werden vor ausgehenden Requests validiert.
+- Docker läuft als Nicht-Root-Nutzer.
 
-Bitte melde Sicherheitslücken **nicht** über öffentliche GitHub Issues. 
+## Für Netzwerkbetrieb erforderlich
 
-Da dieses Projekt auf Anonymität und Dezentralität ausgelegt ist, gibt es kein zentrales "SecOps"-Team. Wenn du einen kritischen Bug in der P2P-Synchronisation (z.B. Injection-Gefahr durch böswillige Peers) findest, empfehlen wir, einen entsprechenden Patch per Pull Request einzureichen. Wir vertrauen auf das Prinzip "Fix it, don't just report it".
+- langer, zufälliger API-Schlüssel
+- TLS über einen korrekt konfigurierten Reverse Proxy
+- Firewall- oder VPN-Begrenzung
+- getrennte Testdaten statt realer vertraulicher Daten
+- regelmäßige SQLite-Backups und Wiederherstellungstests
+- Prüfung jedes registrierten Peers
 
-## Sicherheit im Toobix P2P Netzwerk
+`TOOBIX_ALLOW_INSECURE_REMOTE=1` darf nur in einem isolierten Testnetz verwendet werden.
 
-### 1. Daten-Validierung
-Das aktuelle Backend validiert und bereinigt P2P-Synchronisationseingaben (Input Sanitization). Zudem bereinigt das Frontend HTML-Eingaben über `escapeHtml()`, um grundlegende XSS-Angriffe zu verhindern. Da du dich mit unbekannten Peers verbinden könntest, achte immer darauf, ob sich Nodes "harmonisch" verhalten (Reputation / Praise / Criticism im Peer-Awareness Dashboard).
+## Bekannte Grenzen
 
-### 2. Keine Authentifizierung (By Design)
-Toobix Node 2.0 besitzt bewusst keine Benutzer-Authentifizierung oder Login-Schranken. Jeder kann den lokalen Node abfragen. Wenn du deinen Node öffentlich (z.B. auf einem VPS) ins Internet stellst, ist die API (`/api/scarcity`, `/api/abundance`) für jeden erreichbar.
+- keine Ende-zu-Ende-Verschlüsselung der synchronisierten Inhalte
+- gemeinsamer API-Schlüssel statt Nutzer- und Rollenmodell
+- keine garantierte Fernlöschung bereits replizierter Daten
+- keine Moderation, Spam-Abwehr oder belastbare Identitätsprüfung
+- Last-Write-Wins ist kein Schutz gegen absichtlich manipulierte Zeitstempel
+- Seed-Hilfsdaten können veralten
 
-### 3. Keine verschlüsselten Nachrichten
-Derzeit gibt es keine Ende-zu-Ende-Verschlüsselung (E2EE) für Einträge, da alles öffentlich als Bedarf/Angebot publiziert wird. Teile niemals geheime oder hochsensible Daten.
+## Sicherheitsproblem melden
+
+Keine Zugangsdaten, personenbezogenen Datensätze oder direkt ausnutzbaren Details in ein öffentliches Issue schreiben. Zunächst eine private Kontaktmöglichkeit des Repository-Inhabers verwenden und nur die zur Reproduktion notwendigen Informationen teilen.
+
+## Notfälle
+
+Dieses Projekt ist kein medizinisches Produkt und kein Krisendienst. Bei unmittelbarer Gefahr in Deutschland und der EU gilt 112.

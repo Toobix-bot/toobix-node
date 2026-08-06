@@ -1,33 +1,32 @@
-# Datenschutzerklärung (Privacy Policy)
+# Datenschutz und Datenflüsse
 
-**Stand:** August 2026
+Toobix Node 2.0 ist ein experimenteller lokaler Prototyp. Er ist nicht für vertrauliche oder besonders schützenswerte personenbezogene Daten ausgelegt.
 
-Toobix Node 2.0 ist als dezentrales Peer-to-Peer Netzwerk konzipiert, bei dem Privatsphäre an erster Stelle steht ("Zero Tracking").
+## Lokal gespeicherte Daten
 
-## 1. Datenverarbeitung durch das Toobix-Node Backend
+Bedarfe, Angebote, Matches, Peer-Adressen und technische Reflexionsdaten werden in einer lokalen SQLite-Datei gespeichert. Der Pfad wird über `DB_PATH` festgelegt.
 
-Wenn du einen Toobix Node betreibst (z.B. über `python -m app.main`), passiert Folgendes mit deinen Daten:
+## Peer-Synchronisation
 
-*   **Lokale Speicherung:** Alle Einträge zu "Mangel" und "Überfluss", die du auf deinem Node erstellst, werden ausschließlich in einer lokalen SQLite-Datenbank (`toobix_node.db`) auf deinem Rechner gespeichert.
-*   **P2P-Synchronisation:** Sobald du deinen Node mit anderen Peers verbindest (über `/api/peers/register`), werden deine öffentlichen Mangel- und Überfluss-Einträge mit diesen verbundenen Nodes synchronisiert. Sende daher keine echten Klarnamen oder sensiblen persönlichen Daten als Teil der Beschreibung, wenn du diese nicht öffentlich im Netzwerk teilen möchtest.
-*   **Log-Daten & Metadaten:** Das Backend verarbeitet bei eingehenden P2P-Verbindungen die IP-Adresse/URL des verbundenen Peers. Diese wird genutzt, um die Reputation und "Peer-Awareness" (Praise/Criticism) zu berechnen. 
+Bei registrierten Peers können Bedarfe und Angebote an andere Nodes übertragen werden. Ab diesem Zeitpunkt liegen Kopien außerhalb des ursprünglichen Geräts. Der aktuelle Prototyp bietet keine garantierte Fernlöschung, keine Ende-zu-Ende-Verschlüsselung und keine zentrale Einwilligungsverwaltung.
 
-## 2. Datenverarbeitung durch das Frontend / GitHub Pages
+Deshalb keine vertraulichen Gesundheits-, Ausweis-, Finanz-, vollständigen Adress-, privaten Kontakt- oder Zugangsdaten eintragen.
 
-Die statische Version dieser Webseite (z.B. auf GitHub Pages):
-*   verwendet **keine Cookies**.
-*   verwendet **keine externen Tracking-Scripte** (wie Google Analytics).
-*   lädt **keine externen Schriftarten** (Google Fonts wurde vollständig entfernt).
-*   kommuniziert nur dann mit einem Toobix Node, wenn du das lokale Backend (`http://localhost:8000`) parallel auf deinem Gerät startest. Ohne laufendes Backend findet keine Datenübertragung statt.
+## Browser-Dashboard
 
-Wenn du die Webseite besuchst, die auf GitHub Pages gehostet wird, gelten zusätzlich die [Datenschutzbestimmungen von GitHub](https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement), da GitHub beim Aufruf der Seite zwangsläufig deine IP-Adresse erfassen muss, um die Daten auszuliefern.
+Das Dashboard verwendet keine Cookies und kein Analytics. Ein API-Schlüssel wird bei Bedarf ausschließlich im `sessionStorage` der laufenden Browser-Sitzung gespeichert. Er wird beim Schließen der Sitzung normalerweise entfernt und kann über die Oberfläche zurückgesetzt werden.
 
-## 3. Externe Notfallnummern
+## Netzwerkdaten
 
-Das Toobix-System listet verifizierte, offizielle Notfallnummern (z.B. TelefonSeelsorge, Kältebus). Diese Nummern werden nur in der Datenbank bereitgestellt. Wenn du diese klickst oder anrufst, verlässt du den Bereich des Toobix-Netzwerks.
+Beim Betrieb eines HTTP-Servers fallen technisch Verbindungsdaten wie IP-Adresse und Zeitpunkt an. Die Anwendung unterdrückt normale Request-Logs standardmäßig, Betriebssystem, Reverse Proxy, Containerplattform oder Hosting-Anbieter können jedoch eigene Protokolle führen.
 
-## 4. Anonymität
+## Externe Verbindungen
 
-Toobix erfordert kein Benutzerkonto, keine E-Mail-Adresse und kein Passwort. Die Nutzung des Frontends und das Lesen der Hilfsangebote ist komplett anonym.
+- Der Browser lädt keine externen Schriftarten oder Analyseskripte.
+- P2P-Funktionen verbinden sich nur mit ausdrücklich registrierten Peer-URLs.
+- Die optionale Datenpipeline kann öffentliche Webseiten abrufen.
+- Links zu GitHub oder offiziellen Hilfsseiten verlassen die lokale Anwendung.
 
-*Alle für alle!*
+## Hilfs- und Seed-Daten
+
+Eingebettete Hilfsdaten sind Startwerte. Telefonnummern, Öffnungszeiten, Zielgruppen und regionale Zuständigkeiten müssen vor Veröffentlichung und Nutzung redaktionell anhand offizieller Quellen geprüft werden.

@@ -2,79 +2,57 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>Flyer: Lokales Solidaritäts- & Tauschnetzwerk</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Druckbare Konzeptvorlage für einen lokalen solidarischen Austausch.">
+    <title>Konzeptflyer: Lokaler solidarischer Austausch</title>
     <style>
         @media print {
-            body { background: white; color: black; }
+            body { background: white; color: black; border: 0; margin: 0; }
             .no-print { display: none; }
         }
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 2rem auto;
-            padding: 2rem;
-            border: 2px solid #333;
-            border-radius: 12px;
-            background: #fff;
-            color: #222;
-            line-height: 1.5;
-        }
-        h1 { color: #1e3a8a; font-size: 2rem; border-bottom: 2px solid #1e3a8a; padding-bottom: 0.5rem; }
+        * { box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 2rem auto; padding: 2rem; border: 2px solid #333; border-radius: 12px; background: #fff; color: #222; line-height: 1.5; }
+        h1 { color: #1e3a8a; font-size: 2rem; border-bottom: 2px solid #1e3a8a; padding-bottom: .5rem; }
         h2 { color: #047857; font-size: 1.3rem; margin-top: 1.5rem; }
-        .box-grid { display: flex; gap: 1rem; margin: 1.5rem 0; }
-        .box { flex: 1; padding: 1rem; border: 1px solid #ccc; border-radius: 8px; background: #f9fafb; }
-        .box h3 { margin-top: 0; }
+        .notice { padding: .9rem; border: 1px solid #d97706; border-radius: 8px; background: #fffbeb; }
+        .box-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+        .box { padding: 1rem; border: 1px solid #ccc; border-radius: 8px; background: #f9fafb; }
         .mangel-title { color: #b91c1c; }
         .ueberfluss-title { color: #1d4ed8; }
-        .footer-note { text-align: center; margin-top: 2rem; font-size: 0.9rem; color: #555; border-top: 1px solid #ddd; padding-top: 1rem; }
-        .btn-print { background: #1e3a8a; color: white; border: none; padding: 0.8rem 1.5rem; font-size: 1rem; border-radius: 6px; cursor: pointer; }
+        .footer-note { text-align: center; margin-top: 2rem; font-size: .9rem; color: #555; border-top: 1px solid #ddd; padding-top: 1rem; }
+        .btn-print { background: #1e3a8a; color: white; border: 0; padding: .8rem 1.5rem; font-size: 1rem; border-radius: 6px; cursor: pointer; }
     </style>
 </head>
 <body>
-    <div class="no-print" style="text-align: right; margin-bottom: 1rem;">
-        <button onclick="window.print()" class="btn-print">🖨️ Auf Papier ausdrucken / Als PDF speichern</button>
+    <div class="no-print" style="text-align:right;margin-bottom:1rem">
+        <button type="button" onclick="window.print()" class="btn-print">🖨️ Drucken / Als PDF speichern</button>
     </div>
 
-    <h1>Lokales Solidaritäts- & Tauschnetzwerk</h1>
-    <p><strong>Gemeinsam Mangel ausgleichen, ohne Geldzwang.</strong></p>
+    <h1>Lokaler solidarischer Austausch</h1>
+    <p><strong>Eine Konzeptvorlage, um Angebote und Bedarfe freiwillig und auf Augenhöhe sichtbar zu machen.</strong></p>
+
+    <p class="notice"><strong>Wichtig:</strong> Toobix Node 2.0 ist ein experimenteller Prototyp und kein betriebenes Vermittlungs-, Zahlungs- oder Krisennetzwerk. Eine technische Peer-Verbindung kann Einträge auf weitere Geräte kopieren.</p>
 
     <div class="box-grid">
-        <div class="box">
-            <h3 class="ueberfluss-title">Was wir bieten (Überfluss)</h3>
-            <ul>
-                <li>IT-Hilfe & digitale Ordnung</li>
-                <li>Unterstützung bei Formularen / Anträgen</li>
-                <li>Gemeinschaft & Austausch auf Augenhöhe</li>
-                <li>Freie Vorlagen & Open-Source-Tools</li>
-            </ul>
-        </div>
-
-        <div class="box">
-            <h3 class="mangel-title">Was wir suchen (Bedarf)</h3>
-            <ul>
-                <li>Ruhige Schreibtischplätze / Arbeitsräume</li>
-                <li>Zugang zu warmen Mahlzeiten / Frühstück</li>
-                <li>Kooperationen mit lokalen Vereinen & Tafeln</li>
-                <li>Vermittlung von Betreutem Wohnen (ABW)</li>
-            </ul>
-        </div>
+        <section class="box">
+            <h2 class="ueberfluss-title">Mögliche Angebote</h2>
+            <ul><li>IT-Hilfe und digitale Ordnung</li><li>Unterstützung beim Verstehen von Formularen</li><li>Gemeinschaft und Austausch auf Augenhöhe</li><li>Freie Vorlagen und Open-Source-Werkzeuge</li></ul>
+        </section>
+        <section class="box">
+            <h2 class="mangel-title">Mögliche Bedarfe</h2>
+            <ul><li>Ruhige Arbeitsplätze oder zeitweise Raumnutzung</li><li>Alltagspraktische Unterstützung</li><li>Kooperationen mit lokalen Initiativen</li><li>Hinweise auf passende Beratungsangebote</li></ul>
+        </section>
     </div>
 
-    <h2>Wie funktioniert der Tausch?</h2>
-    <p>
-        1 Stunde engagierte Hilfestellung (z.B. IT-Ablage, Strukturierung) entspricht 10 Solidar-Credits.
-        Diese Credits können direkt gegen Raumzeiten, Verpflegung oder andere Gegenleistungen vor Ort getauscht werden.
-    </p>
+    <h2>Wie kann ein Austausch aussehen?</h2>
+    <p>Beteiligte können Zeit, Fähigkeiten oder Ressourcen freiwillig miteinander abgleichen. Solidar-Credits sind höchstens ein experimenteller Orientierungswert – keine Währung, kein Anspruch und kein Zahlungsversprechen.</p>
 
-    <h2>Notfall & Schnelle Hilfe</h2>
-    <p>
-        Bei akuten Notlagen (drohende Obdachlosigkeit, seelische Krisen) vermitteln wir sofort an kostenfreie, anonyme Anlaufstellen:
-        <br><strong>TelefonSeelsorge:</strong> 0800 1110111 (kostenfrei & 24/7)
-        <br><strong>Regionale Krisendienste & unabhängige Teilhabeberatung</strong> vor Ort.
-    </p>
+    <h2>Datenschutz</h2>
+    <p>Keine vertraulichen Gesundheits-, Kontakt-, Finanz-, Ausweis-, Adress- oder Zugangsdaten eintragen. Inhalte werden lokal in SQLite gespeichert und können bei aktivierter Synchronisation auf verbundene Nodes übertragen werden.</p>
 
-    <div class="footer-note">
-        <p>Erstellt mit Toobix Node 2.0 · 100% Anonym · 0% Datensammlung · 100% Freie Software</p>
-    </div>
+    <h2>Akute Krise oder Gefahr</h2>
+    <p>Dieser Prototyp ersetzt keine professionelle Hilfe. Bei unmittelbarer Gefahr gilt in Deutschland und der EU <strong>112</strong>. Die TelefonSeelsorge ist in Deutschland anonym und kostenfrei unter <strong>116 123</strong> erreichbar.</p>
+
+    <div class="footer-note"><p>Toobix Node 2.0 · experimentelle Open-Source-Konzeptvorlage · keine Garantie für Vermittlung oder Verfügbarkeit</p></div>
 </body>
 </html>
