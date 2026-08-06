@@ -1,0 +1,47 @@
+# Toobix Node 2.0 – Docker Compose für ein lokales P2P-Netzwerk
+# Startet 3 Nodes, die sich automatisch verbinden.
+# Motto: "Alle für alle! (Solidarität statt Isolation)"
+
+version: '3.8'
+
+services:
+  node1:
+    build: .
+    container_name: toobix-node-1
+    ports:
+      - "8000:8000"
+    environment:
+      - PORT=8000
+      - DB_PATH=/data/node1.db
+    volumes:
+      - node1-data:/data
+    restart: unless-stopped
+
+  node2:
+    build: .
+    container_name: toobix-node-2
+    ports:
+      - "8001:8000"
+    environment:
+      - PORT=8000
+      - DB_PATH=/data/node2.db
+    volumes:
+      - node2-data:/data
+    restart: unless-stopped
+
+  node3:
+    build: .
+    container_name: toobix-node-3
+    ports:
+      - "8002:8000"
+    environment:
+      - PORT=8000
+      - DB_PATH=/data/node3.db
+    volumes:
+      - node3-data:/data
+    restart: unless-stopped
+
+volumes:
+  node1-data:
+  node2-data:
+  node3-data:
