@@ -1,38 +1,55 @@
-# Toobix Exchange Node 2.0 – Anleitung für Veröffentlichung & Hosting (0 € Kosten)
+# Toobix Exchange Node 2.0
 
-Dieses Paket enthält die vollständige, anonymisierte und datenschutzkonforme Webanwendung **Toobix Node 2.0**.
+Ein lokaler, datensparsamer Konzeptprototyp für solidarischen Austausch von Angeboten, Bedarfen, Zeit und Fähigkeiten.
 
-## 1. Woraus besteht dieses Paket?
+## Aktueller Status
 
-*   `index.html`: Das barrierefreie HTML5-Grundgerüst mit Manifest, Status-Tacho, Tauschbörse, Makro-Explorer, KLR-Chronik und anonymisiertem SOS-Netzwerk.
-*   `style.css`: Das moderne Vanilla CSS Design im Dark Mode / Glassmorphismus-Stil.
-*   `app.js`: Die interaktive JavaScript-Logik für den Slider, das lokale Hinzufügen von Einträgen, die Filterung von Netzwerken und das Rendern der Chronik.
+Toobix Node 2.0 ist derzeit **kein produktives dezentrales Netzwerk**. Es ist eine statische, lokal nutzbare Webanwendung ohne Benutzerkonten, Server-Datenbank oder Synchronisation zwischen Geräten.
 
-## 2. Wie teste ich es lokal?
+Bereits umgesetzt:
 
-Öffne einfach die Datei `index.html` in deinem Browser (z.B. per Doppelklick oder per Eingabe von `file:///home/michael-horn/.gemini/antigravity/scratch/ToobixWeb/index.html` in der Adresszeile).
+- Status-Tacho für Mangel, Gleichgewicht und Überfluss
+- lokale Angebots- und Bedarfseinträge
+- dauerhafte Speicherung dieser Einträge im Browser über `localStorage`
+- lokale Löschfunktion
+- Makro-Explorer mit beispielhaften Hilfsnetzwerken
+- Transparenz-Chronik und druckbarer Flyer
+- keine Cookies, kein Analytics und keine externen Schrift- oder Skript-Abhängigkeiten
 
-## 3. Wie mache ich die Seite kostenlos für die ganze Welt öffentlich?
+Noch nicht umgesetzt:
 
-Da die Webseite komplett statisch ist (keine Datenbank-Server erforderlich, 100% datenschutzfreundlich), kann sie über mehrere plattformunabhängige Anbieter **dauerhaft kostenlos** gehostet werden:
+- echte Vernetzung mehrerer Personen oder Geräte
+- Moderation, Identitätsprüfung oder Missbrauchsschutz
+- verschlüsselte Synchronisation
+- belastbares Credit- oder Abrechnungssystem
+- redaktionell gepflegte regionale Hilfsdatenbank
 
-### Option A: Netlify Drop (Einfachste Methode, dauert 30 Sekunden)
-1. Gehe auf [app.netlify.com/drop](https://app.netlify.com/drop).
-2. Ziehe den gesamten Ordner `ToobixWeb` per Drag & Drop in das Browserfenster.
-3. Netlify generiert dir sofort eine kostenlose, SSL-verschlüsselte Webadresse (z.B. `https://toobix-node.netlify.app`).
+## Lokal starten
 
-### Option B: GitHub Pages (Ideal für Open Source)
-1. Erstelle ein kostenloses Repository auf GitHub.
-2. Lade `index.html`, `style.css` und `app.js` hoch.
-3. Aktiviere *GitHub Pages* in den Repository-Einstellungen. Die Seite ist unter `https://dein-name.github.io/toobix-node` erreichbar.
+Repository herunterladen oder klonen und anschließend `index.html` direkt im Browser öffnen. Es ist kein Build-Schritt und kein Server erforderlich.
 
-### Option C: Vercel / Render
-Funktioniert genauso einfach über Import des Ordners oder Repositories.
+## Datenschutz
 
-## 4. Datenschutz & Sicherheit
+Die Webanwendung sendet von sich aus keine Eingaben an einen Server. Selbst erstellte Angebote und Bedarfe verbleiben im lokalen Browser-Speicher des verwendeten Geräts. Über die Schaltfläche **„Lokale Einträge löschen“** können diese Daten entfernt werden.
 
-*   **Keine Klarnamen:** Alle vertraulichen Personenbezüge wurden anonymisiert.
-*   **Keine Cookies / Kein Tracking:** Es werden keinerlei personenbezogene Daten gesammelt oder verarbeitet.
-*   **Keine externen Server-Abhängigkeiten:** Keine externen Analytics-Skripte.
+Wichtig: Browser-Speicher ist keine verschlüsselte Datenbank. Keine vertraulichen Gesundheits-, Kontakt-, Finanz- oder Zugangsdaten eintragen.
 
-Viel Erfolg beim Verbinden von Mangel, Gleichgewicht und Überfluss!
+Weitere Hinweise stehen in [PRIVACY.md](PRIVACY.md) und [SECURITY.md](SECURITY.md).
+
+## Veröffentlichung
+
+Die Seite kann als statische Website beispielsweise über GitHub Pages, Netlify oder einen vergleichbaren Anbieter bereitgestellt werden. Vor einer öffentlichen Nutzung müssen Hilfsangebote, Telefonnummern und regionale Informationen redaktionell geprüft und regelmäßig aktualisiert werden.
+
+## Projektstruktur
+
+- `index.html` – Struktur und Inhalte
+- `style.css` – responsives Design ohne externe Fonts
+- `app.js` – lokale Interaktion und Speicherung
+- `flyer_solidaritaet.html` – druckbarer Konzept-Flyer
+- `PRIVACY.md` – Datenschutzgrenzen
+- `SECURITY.md` – Sicherheits- und Meldehinweise
+- `LICENSE` – MIT-Lizenz
+
+## Lizenz
+
+Dieses Repository steht unter der MIT-Lizenz. Die Lizenz gilt für den Code und die mitgelieferten Vorlagen, soweit keine abweichenden Rechte Dritter betroffen sind.
