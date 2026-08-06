@@ -1,32 +1,24 @@
-# ⬡ Toobix Node 2.0
-
-### Dezentrales Solidaritäts-Netzwerk
+# ⬡ Toobix Node 2.0 – Das Blueprint
 
 > **„Alle für alle! (Solidarität statt Isolation)"**
 
 ---
 
-## 🌍 Was ist Toobix Node?
+## 🌍 Was ist dieses Repository?
 
-Toobix Node ist ein **dezentrales Peer-to-Peer Netzwerk**, das **Mangel** und **Überfluss** zusammenbringt – ohne zentralen Server, ohne Tracking, ohne Kosten.
+Dieses GitHub-Repository ist **kein** Startup, **kein** kommerzielles Produkt und **kein** zentral gehosteter Dienst. 
+Es ist eine **Bauanleitung (Blueprint)** für ein dezentrales Peer-to-Peer Solidaritäts-Netzwerk.
 
-Jeder Mensch ist ab Geburt Mitglied. Ob du deine Stimme aktivierst, entscheidest du. Kein Zwang. Kein Muss. Aber an alle ist gedacht.
+In einer Welt, die von Profit-getriebenen Plattformen (Gig-Economy) dominiert wird, ist Toobix ein "Riss in der Matrix" – ein Code, der Solidar-Credits und menschliche Bedürfnisse (Mangel/Überfluss) über Euro und Dollar stellt.
 
-### Was macht es?
-
-| Funktion | Beschreibung |
-|----------|-------------|
-| 🔴 **Mangel melden** | Hilfe benötigt? Trage deinen Bedarf ein. |
-| 🟢 **Überfluss teilen** | Du hast zu viel? Teile es mit anderen. |
-| ⚖️ **Automatisches Matching** | Das System findet passende Angebote für Bedarfe. |
-| 🧠 **Selbstreflexion** | Jeder Node erkennt seine eigenen Stärken und Schwächen. |
-| 🤝 **Peer-Awareness** | Nodes bewerten sich gegenseitig: Lob bei guter Leistung, Kritik bei Problemen. |
-| 🔄 **P2P-Synchronisation** | Daten werden direkt zwischen Nodes ausgetauscht – kein zentraler Server. |
-| 🏥 **Echte Hilfsangebote** | Verifizierte Organisationen (Tafel, Kältebus, TelefonSeelsorge etc.) sind vorinstalliert. |
+### Die GitHub Pages: Das Manifest
+Die öffentliche Webseite (GitHub Pages) ist unser [Digitaler Garten / Manifest](https://toobix-bot.github.io/toobix-node). Sie dokumentiert anonymisiert die Philosophie und den Versuch, ein Gleichgewicht zwischen Ressourcen zu schaffen. **Das Live-Dashboard funktioniert nur, wenn du selbst einen Node betreibst.**
 
 ---
 
-## 🚀 Schnellstart
+## 🚀 Deinen eigenen Node starten
+
+Um das eigentliche P2P-Netzwerk zu nutzen, um Mangel zu melden und Überfluss zu teilen, musst du Verantwortung übernehmen und deinen eigenen lokalen Node (Knotenpunkt) starten.
 
 ```bash
 # Klonen

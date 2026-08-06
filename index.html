@@ -40,43 +40,65 @@
             <div class="hero-content">
                 <div class="hero-badge">
                     <span class="badge-dot"></span>
-                    Anonym · Dezentral · Open Source · Zero Tracking
+                    Digitaler Garten · Open Source · Solidarität
                 </div>
                 <h1>Alle für alle.</h1>
-                <p class="hero-subtitle">Solidarität statt Isolation.</p>
+                <p class="hero-subtitle">Solidarität statt Isolation. Mangel trifft Überfluss.</p>
                 <p class="hero-desc">
-                    Ein dezentrales Peer-to-Peer Netzwerk, das <strong>Mangel</strong> und <strong>Überfluss</strong> 
-                    zusammenbringt. Jeder Mensch ist ab Geburt Mitglied – ob du deine Stimme aktivierst, 
-                    entscheidest du. Kein Zwang. Kein Muss. Aber an alle ist gedacht.
+                    Dies ist das Logbuch und die Bauanleitung von <strong>Toobix-bot</strong>. <br>
+                    Kein Startup. Keine Tracker. Keine Gewinne. Nur der Versuch, einen digitalen Raum zu schaffen,
+                    in dem Solidarität und gegenseitige Hilfe (P2P) wieder einen echten Wert bekommen.
                 </p>
                 <div class="hero-actions">
-                    <a href="#live-dashboard" class="btn btn-primary">
-                        <span class="btn-icon">📡</span> Live Dashboard öffnen
+                    <a href="#manifest" class="btn btn-secondary">
+                        <span class="btn-icon">📖</span> Das Manifest lesen
                     </a>
-                    <a href="https://github.com/Toobix-bot/toobix-node" target="_blank" class="btn btn-secondary">
-                        <span class="btn-icon">⬡</span> GitHub → Mitmachen
+                    <a href="https://github.com/Toobix-bot/toobix-node" target="_blank" class="btn btn-primary">
+                        <span class="btn-icon">⬡</span> Code / Node herunterladen
                     </a>
                 </div>
-                <div class="hero-stats" id="heroStats">
-                    <div class="stat">
-                        <span class="stat-value" id="statNodes">--</span>
-                        <span class="stat-label">Aktive Nodes</span>
+            </div>
+        </section>
+
+        <!-- Manifesto / Digital Garden -->
+        <section id="manifest" class="section">
+            <div class="section-header">
+                <h2>🌱 Digitaler Garten & Logbuch</h2>
+                <p class="section-subtitle">Gedanken zur Kosten-Leistungs-Rechnung (KLR) des Lebens.</p>
+            </div>
+            
+            <div class="network-grid">
+                <div class="dash-card dash-card-full">
+                    <div class="dash-card-header">
+                        <span class="dash-icon">📓</span>
+                        <h3>Eintrag: System-Start (August 2026)</h3>
                     </div>
-                    <div class="stat">
-                        <span class="stat-value" id="statOffers">--</span>
-                        <span class="stat-label">Hilfsangebote</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-value" id="statNeeds">--</span>
-                        <span class="stat-label">Offene Bedarfe</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-value" id="statHarmony">--</span>
-                        <span class="stat-label">Harmonie-Score</span>
+                    <div class="dash-card-body">
+                        <p><strong>Die Philosophie:</strong> In einer Welt, in der alles kommerzialisiert wird, muss es einen Raum geben, der ohne Zwang auskommt. Toobix ist keine App, die du konsumierst. Es ist ein Netzwerk, das du <em>betreibst</em>. Es lebt nur, wenn Menschen entscheiden, ihren eigenen Node (Knotenpunkt) zu starten.</p>
+                        <hr style="opacity: 0.1; margin: 15px 0;">
+                        <p><strong>Heutiger Mangel:</strong> Echte, bedingungslose Verbindungen im digitalen Raum.<br>
+                        <strong>Heutiger Überfluss:</strong> Programmierkenntnisse, Serverkapazität, Zeit für Open-Source.<br>
+                        <strong>Fiktiver Wert dieses Beitrags:</strong> 3.500 Solidar-Credits (Unbezahlbar in Fiat).</p>
                     </div>
                 </div>
             </div>
         </section>
+
+        <!-- Local Connection Status -->
+        <section class="section" id="node-gate">
+            <div class="dash-card" style="text-align: center; border-color: var(--warning-color);">
+                <div class="dash-card-body">
+                    <h3>⚠️ Du bist nicht mit dem Netzwerk verbunden</h3>
+                    <p style="margin: 15px 0; color: var(--text-secondary);">Um Mangel zu melden, Überfluss zu teilen und das echte P2P-Netzwerk zu nutzen, musst du deinen eigenen Toobix-Node lokal ausführen. Die GitHub Pages sind nur das Schaufenster.</p>
+                    <p style="font-family: monospace; background: var(--bg-card); padding: 10px; border-radius: 4px; display: inline-block;">python3 -m app.main</p>
+                    <p style="margin-top: 15px; font-size: 0.9em;">Starte den Server und aktualisiere diese Seite.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- APP CONTAINER (Hidden by default, shown via JS if local node connects) -->
+        <div id="app-container" style="display: none;">
+
 
         <!-- Live Dashboard Section -->
         <section id="live-dashboard" class="section">
@@ -288,6 +310,7 @@
                 </div>
             </div>
         </section>
+        </div> <!-- End of app-container -->
     </main>
 
     <footer>

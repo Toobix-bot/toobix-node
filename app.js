@@ -72,6 +72,19 @@ function setConnectionStatus(online) {
         dot.className = `status-dot ${online ? 'online' : 'offline'}`;
         text.textContent = online ? 'Node verbunden' : 'Keine Verbindung';
     }
+
+    const appContainer = document.getElementById('app-container');
+    const nodeGate = document.getElementById('node-gate');
+    
+    if (appContainer && nodeGate) {
+        if (online) {
+            appContainer.style.display = 'block';
+            nodeGate.style.display = 'none';
+        } else {
+            appContainer.style.display = 'none';
+            nodeGate.style.display = 'block';
+        }
+    }
 }
 
 // ─── Refresh All ────────────────────────────────────────────
