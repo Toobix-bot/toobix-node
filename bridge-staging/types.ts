@@ -32,6 +32,10 @@ export interface PublicSnapshot {
     summary?: string;
     published_at?: string;
     tags?: string[];
+    // Withdrawal (v0.1.1):
+    status?: "published" | "withdrawn";
+    withdrawn_at?: string;
+    withdrawal_reason?: string;
 }
 
 export interface BuildSnapshotRequest {

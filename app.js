@@ -64,6 +64,9 @@ document.addEventListener('DOMContentLoaded', () => {
     window.setInterval(refreshAll, 30000);
 });
 
+let rawChronicleData = [];
+let activeChronicleFilter = 'all';
+
 async function fetchChronicle() {
     const list = document.getElementById('chronicleList');
     if (!list) return;
@@ -71,24 +74,82 @@ async function fetchChronicle() {
     try {
         const response = await fetch('public-snapshots/chronicle.json');
         if (!response.ok) throw new Error('Chronik nicht gefunden');
-        const chronicle = await response.json();
+        rawChronicleData = await response.json();
         
-        list.innerHTML = chronicle.map(entry => `
-            <div class="card" style="margin-bottom: 1rem; border-left: 4px solid var(--accent-primary);">
+        buildChronicleFilters();
+        renderChronicle();
+    } catch (err) {
+        list.innerHTML = `<p class="no-data">Die Chronik konnte nicht geladen werden oder ist noch leer.</p>`;
+    }
+}
+
+function buildChronicleFilters() {
+    const filterContainer = document.getElementById('chronicleFilters');
+    if (!filterContainer || rawChronicleData.length === 0) return;
+
+    const types = [...new Set(rawChronicleData.map(e => e.type))];
+    
+    let html = `<button class="filter-btn active" data-filter="all">Alle</button>`;
+    types.forEach(type => {
+        html += `<button class="filter-btn" data-filter="${escapeHtml(type)}">${escapeHtml(type.toUpperCase())}</button>`;
+    });
+    
+    filterContainer.innerHTML = html;
+
+    filterContainer.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            filterContainer.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            e.target.classList.add('active');
+            activeChronicleFilter = e.target.getAttribute('data-filter');
+            renderChronicle();
+        });
+    });
+}
+
+function renderChronicle() {
+    const list = document.getElementById('chronicleList');
+    if (!list) return;
+
+    const filtered = activeChronicleFilter === 'all' 
+        ? rawChronicleData 
+        : rawChronicleData.filter(e => e.type === activeChronicleFilter);
+
+    if (filtered.length === 0) {
+        list.innerHTML = `<p class="no-data">Keine Einträge für diesen Filter.</p>`;
+        return;
+    }
+
+    list.innerHTML = filtered.map(entry => {
+        const isWithdrawn = entry.status === 'withdrawn';
+        const opacity = isWithdrawn ? '0.5' : '1';
+        const badge = isWithdrawn ? `<span style="background: var(--text-muted); color: var(--bg-primary); padding: 0.1rem 0.4rem; border-radius: 4px; font-size: 0.7rem; margin-left: 0.5rem;">ZURÜCKGEZOGEN</span>` : '';
+        const borderStyle = isWithdrawn ? 'border-left: 4px solid var(--text-muted);' : 'border-left: 4px solid var(--accent-primary);';
+        
+        let tagsHtml = '';
+        if (entry.tags && entry.tags.length > 0) {
+            tagsHtml = `<div style="margin-top: 0.8rem; display: flex; gap: 0.4rem; flex-wrap: wrap;">
+                ${entry.tags.map(t => `<span style="font-size: 0.75rem; background: var(--bg-elevated); padding: 0.1rem 0.5rem; border-radius: 12px; color: var(--accent-secondary);">${escapeHtml(t)}</span>`).join('')}
+            </div>`;
+        }
+
+        return `
+            <div class="card" style="margin-bottom: 1rem; opacity: ${opacity}; ${borderStyle} transition: opacity 0.3s;">
                 <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.875rem; color: var(--text-muted);">
                     <span>${escapeHtml(entry.date)}</span>
                     <span style="text-transform: uppercase; font-weight: 600;">${escapeHtml(entry.type)}</span>
                 </div>
-                <h3 style="margin: 0 0 0.5rem 0; font-size: 1.125rem;">${escapeHtml(entry.title)}</h3>
+                <h3 style="margin: 0 0 0.5rem 0; font-size: 1.125rem;">
+                    ${isWithdrawn ? `<del>${escapeHtml(entry.title)}</del>` : escapeHtml(entry.title)}
+                    ${badge}
+                </h3>
                 <p style="margin: 0; font-size: 0.95rem;">${escapeHtml(entry.description)}</p>
-                <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted); opacity: 0.6; word-break: break-all;">
-                    ${escapeHtml(entry.snapshot_hash)}
+                ${tagsHtml}
+                <div style="margin-top: 0.8rem; font-size: 0.7rem; color: var(--text-muted); opacity: 0.6; word-break: break-all; font-family: monospace;">
+                    ${escapeHtml(entry.snapshot_hash || entry.id)}
                 </div>
             </div>
-        `).join('');
-    } catch (err) {
-        list.innerHTML = `<p class="no-data">Die Chronik konnte nicht geladen werden oder ist noch leer.</p>`;
-    }
+        `;
+    }).join('');
 }
 
 function initScrollEffects() {

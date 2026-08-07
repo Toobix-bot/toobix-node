@@ -98,6 +98,37 @@
     backdrop-filter: blur(10px);
 }
 
+.empty-state {
+    padding: 3rem;
+    text-align: center;
+    background: var(--bg-secondary);
+    border-radius: 16px;
+    color: var(--text-muted);
+}
+
+.filter-btn {
+    background: var(--bg-secondary);
+    color: var(--text-muted);
+    border: 1px solid var(--border-color);
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.filter-btn:hover {
+    background: var(--bg-elevated);
+    color: var(--text-primary);
+}
+
+.filter-btn.active {
+    background: var(--accent-primary);
+    color: var(--bg-primary);
+    border-color: var(--accent-primary);
+}
+
 .meaning-card > span {
     display: block;
     margin-bottom: 0.6rem;

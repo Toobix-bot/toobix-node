@@ -32,10 +32,14 @@ def generate_chronicle():
             entry_title = first_item.get('title', 'Ohne Titel')
             
             summary = data.get('summary') or first_item.get('description', '')
-            published_at = data.get('published_at') or data.get('approved_at') or '1970-01-01T00:00:00Z'
+            published_at = data.get('published_at') or data.get('approved_at')
             tags = data.get('tags', [])
+            status = data.get('status', 'published')
             
-            # Format date to YYYY-MM-DD for simple rendering, or keep full ISO
+            if not published_at:
+                print(f" [WARNUNG] {file_path} hat kein published_at. Setze an das Ende der Chronik.")
+                published_at = '1970-01-01T00:00:00Z'
+            
             date_str = published_at.split('T')[0]
             
             chronicle_entry = {
@@ -46,12 +50,19 @@ def generate_chronicle():
                 "title": entry_title,
                 "description": summary,
                 "tags": tags,
+                "status": status,
                 "snapshot_hash": data.get('snapshot_hash', '')
             }
+            
+            if status == 'withdrawn':
+                chronicle_entry['withdrawn_at'] = data.get('withdrawn_at')
+                chronicle_entry['withdrawal_reason'] = data.get('withdrawal_reason')
             
             chronicle.append(chronicle_entry)
             print(f" [+] Gelesen: {os.path.basename(file_path)}")
             
+        except json.JSONDecodeError:
+            print(f" [!] ÜBERSPRUNGEN: {file_path} enthält ungültiges JSON.")
         except Exception as e:
             print(f" [!] Fehler beim Lesen von {file_path}: {e}")
 

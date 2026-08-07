@@ -30,7 +30,21 @@
     },
     "contains_personal_data": {
       "type": "boolean",
-      "const": false
+      "description": "Muss false sein, da alle PII vor dem Snapshot entfernt wurden"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["published", "withdrawn"],
+      "description": "Status des Snapshots in der öffentlichen Chronik"
+    },
+    "withdrawn_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Zeitpunkt der Rücknahme (falls status='withdrawn')"
+    },
+    "withdrawal_reason": {
+      "type": "string",
+      "description": "Grund für die Rücknahme"
     },
     "items": {
       "type": "array",
