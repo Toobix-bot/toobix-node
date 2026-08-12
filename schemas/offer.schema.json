@@ -2,13 +2,44 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "TOOBIX Offer Schema",
   "type": "object",
+  "additionalProperties": false,
   "properties": {
     "id": { "type": "string" },
     "owner_id": { "type": "string" },
     "category": { "type": "string" },
     "description": { "type": "string" },
     "capacity": { "type": "string" },
-    "mode": { "type": "array", "items": { "type": "string", "enum": ["local", "remote"] } }
+    "mode": { "type": "array", "items": { "type": "string", "enum": ["local", "remote"] } },
+    "location": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+         "country_code": {"type": "string"},
+         "locality": {"type": "string"},
+         "precision": {"type": "string"},
+         "district": {"type": "string"},
+         "possible_precise_location": {"type": "boolean"},
+         "exact_private_ref": {"type": ["string", "null"]}
+      }
+    },
+    "consent": {
+       "type": "object",
+       "additionalProperties": false,
+       "properties": {
+         "public_listing": {"type": "boolean"},
+         "ai_matching": {"type": "boolean"},
+         "external_search": {"type": "boolean"},
+         "precise_location": {"type": "boolean"}
+       }
+    },
+    "recurring_support_plan": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "active": {"type": "boolean"},
+        "frequency": {"type": "string"}
+      }
+    }
   },
   "required": ["id", "owner_id", "category"]
 }

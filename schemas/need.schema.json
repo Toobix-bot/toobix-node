@@ -2,6 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "TOOBIX Need Schema",
   "type": "object",
+  "additionalProperties": false,
   "properties": {
     "id": { "type": "string" },
     "owner_id": { "type": "string" },
@@ -10,7 +11,29 @@
     "urgency": { "type": "string", "enum": ["low", "medium", "high", "critical"] },
     "mode": { "type": "array", "items": { "type": "string", "enum": ["local", "remote"] } },
     "availability": { "type": "string" },
-    "visibility": { "type": "string" }
+    "visibility": { "type": "string" },
+    "location": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+         "country_code": {"type": "string"},
+         "locality": {"type": "string"},
+         "precision": {"type": "string"},
+         "district": {"type": "string"},
+         "possible_precise_location": {"type": "boolean"},
+         "exact_private_ref": {"type": ["string", "null"]}
+      }
+    },
+    "consent": {
+       "type": "object",
+       "additionalProperties": false,
+       "properties": {
+         "public_listing": {"type": "boolean"},
+         "ai_matching": {"type": "boolean"},
+         "external_search": {"type": "boolean"},
+         "precise_location": {"type": "boolean"}
+       }
+    }
   },
   "required": ["id", "owner_id", "category"]
 }

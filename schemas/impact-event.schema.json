@@ -2,28 +2,32 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "TOOBIX Impact Event Schema",
   "type": "object",
+  "additionalProperties": false,
   "properties": {
     "id": { "type": "string" },
     "match_id": { "type": "string" },
     "occurred_at": { "type": "string", "format": "date-time" },
     "verification": {
       "type": "object",
+      "additionalProperties": false,
       "properties": {
-        "level": { "type": "string" },
+        "level": { "type": "string", "enum": ["self", "peer", "independent", "community", "expert", "authority"] },
         "receiver_confirmed": { "type": "boolean" },
         "giver_confirmed": { "type": "boolean" },
         "external_evidence_refs": { "type": "array", "items": { "type": "string" } }
-      }
+      },
+      "required": ["level"]
     },
     "outcome": { "type": "string" },
-    "ai_life_proposal": { "type": "number" },
-    "final_life": { "type": "number" },
+    "ai_life_proposal": { "type": "number", "enum": [1, 3, 10, 30] },
+    "final_life": { "type": "number", "enum": [1, 3, 10, 30] },
     "receiver_credit": { "type": "number" },
     "giver_credit": { "type": "number" },
     "commons_impact": { "type": "number" },
     "community_dividend": { "type": "number" },
     "audit": {
       "type": "object",
+      "additionalProperties": false,
       "properties": {
         "constitution_version": { "type": "string" },
         "created_at": { "type": "string", "format": "date-time" }
