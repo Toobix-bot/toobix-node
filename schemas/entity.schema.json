@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "TOOBIX Entity Schema",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string" },
+    "type": { "type": "string", "enum": ["person", "group", "ngo", "public_body", "business", "toobix"] },
+    "public_alias": { "type": "string" },
+    "roles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "label": { "type": "string" },
+          "scope": { "type": "string" },
+          "verification": {
+            "type": "object",
+            "properties": {
+              "level": { "type": "string", "enum": ["self", "peer", "community", "expert", "authority"] },
+              "valid_until": { "type": ["string", "null"], "format": "date-time" }
+            },
+            "required": ["level"]
+          }
+        },
+        "required": ["label", "scope"]
+      }
+    }
+  },
+  "required": ["id", "type", "public_alias"]
+}

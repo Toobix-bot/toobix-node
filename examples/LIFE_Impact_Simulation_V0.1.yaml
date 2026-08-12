@@ -1,0 +1,84 @@
+meta:
+  name: "TOOBIX LIFE Impact Simulation V0.1"
+  date: "2026-08-12"
+  synthetic_only: true
+  purpose: "Ersten nicht-nullsummigen Hilfe-/Wirkungskreislauf testen."
+
+constitution_ref: "TOOBIX_Verfassung_V0.1.md"
+
+mechanism:
+  rule: "Eine bestätigte hilfreiche Verbindung erzeugt neuen LIFE-Wert für Empfänger und Geber in gleicher Höhe."
+  community_dividend_ratio: 0.10
+
+value_scale:
+  1: "kleine alltagsnahe Hilfe"
+  3: "deutlich praktische/stabilisierende Hilfe"
+  10: "starke Wirkung auf Grundbedarf, Gesundheit, Sicherheit oder Teilhabe"
+  30: "außergewöhnliche/potenziell lebensrettende Wirkung; höhere Evidenz-/Fachprüfung nötig"
+
+entities:
+  - {id: E01, type: person, public_alias: "Member 001", roles: [{label: community_member, scope: general, verification: {level: self}}]}
+  - {id: E02, type: person, public_alias: "Member 002", roles: [{label: community_member, scope: general, verification: {level: self}}]}
+  - {id: E03, type: person, public_alias: "Member 003", roles: [{label: community_member, scope: general, verification: {level: self}}]}
+  - {id: E04, type: person, public_alias: "Member 004", roles: [{label: community_member, scope: general, verification: {level: self}}]}
+  - {id: E05, type: person, public_alias: "Member 005", roles: [{label: community_member, scope: general, verification: {level: self}}]}
+  - {id: E06, type: person, public_alias: "Member 006", roles: [{label: community_member, scope: general, verification: {level: self}}]}
+  - {id: E07, type: person, public_alias: "Member 007", roles: [{label: community_member, scope: general, verification: {level: self}}]}
+  - {id: E08, type: person, public_alias: "Member 008", roles: [{label: community_member, scope: general, verification: {level: self}}]}
+  - {id: E09, type: person, public_alias: "Member 009", roles: [{label: toobix_member, scope: project, verification: {level: self}}]}
+  - {id: E10, type: person, public_alias: "Member 010", roles: [{label: community_member, scope: general, verification: {level: self}}]}
+
+needs:
+  - {id: N01, owner_id: E01, category: food, description: "Lebensmittel/Äpfel", urgency: low}
+  - {id: N02, owner_id: E02, category: translation, description: "kurze Übersetzung", urgency: low}
+  - {id: N03, owner_id: E03, category: basic_needs, description: "warme Mahlzeit, akuter Versorgungsbedarf", urgency: high}
+  - {id: N04, owner_id: E04, category: companionship, description: "nicht-akute Terminbegleitung", urgency: medium}
+  - {id: N05, owner_id: E05, category: digital, description: "Laptop-Hilfe", urgency: medium}
+  - {id: N06, owner_id: E06, category: administration, description: "Formular verstehen", urgency: medium}
+  - {id: N07, owner_id: E07, category: mobility, description: "Fahrradreparatur", urgency: medium}
+  - {id: N08, owner_id: E08, category: education, description: "Mathe-Lernhilfe", urgency: low}
+  - {id: N09, owner_id: E09, category: accessibility, description: "Accessibility-Test für Public Shell", urgency: medium}
+  - {id: N10, owner_id: E10, category: environment, description: "Hilfe beim Aufräumtermin", urgency: low}
+
+offers:
+  - {id: O01, owner_id: E01, category: translation, description: "kurze Englischübersetzung", capacity: "30_min"}
+  - {id: O02, owner_id: E02, category: food, description: "überschüssige Äpfel", capacity: "small"}
+  - {id: O03, owner_id: E03, category: companionship, description: "Terminbegleitung", capacity: "1_hr"}
+  - {id: O04, owner_id: E04, category: basic_needs, description: "Mahlzeit kochen/bringen", capacity: "1_meal"}
+  - {id: O05, owner_id: E05, category: administration, description: "Formulare strukturieren", capacity: "1_hr"}
+  - {id: O06, owner_id: E06, category: digital, description: "Laptop-Fehlerhilfe", capacity: "1_hr"}
+  - {id: O07, owner_id: E07, category: education, description: "Mathe-Grundlagen erklären", capacity: "1_hr"}
+  - {id: O08, owner_id: E08, category: mobility, description: "Fahrradreparatur", capacity: "small"}
+  - {id: O09, owner_id: E09, category: environment, description: "Nachbarschafts-Aufräumen", capacity: "1_hr"}
+  - {id: O10, owner_id: E10, category: accessibility, description: "Accessibility-Test", capacity: "1_hr"}
+
+matches:
+  - {id: M01, need_id: N01, offer_id: O02, status: completed}
+  - {id: M02, need_id: N03, offer_id: O04, status: completed}
+  - {id: M03, need_id: N05, offer_id: O06, status: completed}
+  - {id: M04, need_id: N07, offer_id: O08, status: completed}
+  - {id: M05, need_id: N09, offer_id: O10, status: completed}
+  - {id: M06, need_id: N02, offer_id: O01, status: completed}
+  - {id: M07, need_id: N04, offer_id: O03, status: completed}
+  - {id: M08, need_id: N06, offer_id: O05, status: completed}
+  - {id: M09, need_id: N08, offer_id: O07, status: completed}
+  - {id: M10, need_id: N10, offer_id: O09, status: completed}
+
+impact_events:
+  - {id: IE01, match_id: M01, final_life: 1, receiver_credit: 1, giver_credit: 1, commons_impact: 1, community_dividend: 0.1, verification: {level: peer, receiver_confirmed: true, giver_confirmed: true}}
+  - {id: IE02, match_id: M02, final_life: 10, receiver_credit: 10, giver_credit: 10, commons_impact: 10, community_dividend: 1.0, verification: {level: peer, receiver_confirmed: true, giver_confirmed: true}}
+  - {id: IE03, match_id: M03, final_life: 3, receiver_credit: 3, giver_credit: 3, commons_impact: 3, community_dividend: 0.3, verification: {level: peer, receiver_confirmed: true, giver_confirmed: true}}
+  - {id: IE04, match_id: M04, final_life: 3, receiver_credit: 3, giver_credit: 3, commons_impact: 3, community_dividend: 0.3, verification: {level: peer, receiver_confirmed: true, giver_confirmed: true}}
+  - {id: IE05, match_id: M05, final_life: 3, receiver_credit: 3, giver_credit: 3, commons_impact: 3, community_dividend: 0.3, verification: {level: community, receiver_confirmed: true, giver_confirmed: true}}
+  - {id: IE06, match_id: M06, final_life: 1, receiver_credit: 1, giver_credit: 1, commons_impact: 1, community_dividend: 0.1, verification: {level: peer, receiver_confirmed: true, giver_confirmed: true}}
+  - {id: IE07, match_id: M07, final_life: 3, receiver_credit: 3, giver_credit: 3, commons_impact: 3, community_dividend: 0.3, verification: {level: peer, receiver_confirmed: true, giver_confirmed: true}}
+  - {id: IE08, match_id: M08, final_life: 3, receiver_credit: 3, giver_credit: 3, commons_impact: 3, community_dividend: 0.3, verification: {level: peer, receiver_confirmed: true, giver_confirmed: true}}
+  - {id: IE09, match_id: M09, final_life: 3, receiver_credit: 3, giver_credit: 3, commons_impact: 3, community_dividend: 0.3, verification: {level: peer, receiver_confirmed: true, giver_confirmed: true}}
+  - {id: IE10, match_id: M10, final_life: 1, receiver_credit: 1, giver_credit: 1, commons_impact: 1, community_dividend: 0.1, verification: {level: peer, receiver_confirmed: true, giver_confirmed: true}}
+
+ledger:
+  total_matches: 10
+  commons_impact: 31
+  personal_direct_credits: 62
+  total_dividend: 3.1
+  personal_ledger_total: 65.1

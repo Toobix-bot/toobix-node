@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "TOOBIX Offer Schema",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string" },
+    "owner_id": { "type": "string" },
+    "category": { "type": "string" },
+    "description": { "type": "string" },
+    "capacity": { "type": "string" },
+    "mode": { "type": "array", "items": { "type": "string", "enum": ["local", "remote"] } }
+  },
+  "required": ["id", "owner_id", "category"]
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "TOOBIX Match Schema",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string" },
+    "need_id": { "type": "string" },
+    "offer_id": { "type": "string" },
+    "solution_source": { "type": "string", "enum": ["community", "nonprofit", "public_service", "web", "maps", "shopping"] },
+    "reason_codes": { "type": "array", "items": { "type": "string" } },
+    "status": { "type": "string", "enum": ["proposed", "accepted", "rejected", "completed"] },
+    "consent": {
+      "type": "object",
+      "properties": {
+        "receiver_agreed": { "type": "boolean" },
+        "giver_agreed": { "type": "boolean" }
+      }
+    }
+  },
+  "required": ["id", "need_id", "offer_id", "status"]
+}

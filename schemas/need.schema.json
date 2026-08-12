@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "TOOBIX Need Schema",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string" },
+    "owner_id": { "type": "string" },
+    "category": { "type": "string" },
+    "description": { "type": "string" },
+    "urgency": { "type": "string", "enum": ["low", "medium", "high", "critical"] },
+    "mode": { "type": "array", "items": { "type": "string", "enum": ["local", "remote"] } },
+    "availability": { "type": "string" },
+    "visibility": { "type": "string" }
+  },
+  "required": ["id", "owner_id", "category"]
+}
