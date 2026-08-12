@@ -1,0 +1,23 @@
+title: "TOOBIX Public Knowledge Node"
+description: "Offenes, korrigierbares Wissen über Bedarfe, Ressourcen, Lücken, Matching und reale Wirkung."
+url: "https://toobix-bot.github.io"
+baseurl: "/toobix-node"
+lang: "de"
+markdown: kramdown
+permalink: pretty
+
+exclude:
+  - app
+  - tests
+  - examples
+  - requirements.txt
+  - docker-compose.yml
+  - Dockerfile
+
+defaults:
+  - scope:
+      path: "docs/knowledge"
+    values:
+      layout: "knowledge"
+      lang: "de"
+      status: "experimental"
