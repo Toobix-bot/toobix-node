@@ -18,9 +18,12 @@ Es bietet einen Versuch an:
 
 TOOBIX muss nicht erfolgreich, bekannt oder perfekt werden, damit das Leben seines Urhebers wertvoll ist.
 
-Das Projekt wird verschenkt, weil darin etwas Nützliches liegen könnte – nicht, um im Gegenzug Anerkennung, Dankbarkeit oder Bestätigung zu erzwingen.
+Das Projekt wird verschenkt, weil darin etwas Nützliches liegen könnte – nicht, um im Gegenzug Anerkennung, Dankbarkeit oder Bestätigung zu erzwingen. Ein kleiner Nutzen für wenige Menschen ist bereits realer Nutzen. Reichweite ist kein Maß für Menschenwürde.
 
-Ein kleiner Nutzen für wenige Menschen ist bereits realer Nutzen. Reichweite ist kein Maß für Menschenwürde.
+**Die persönliche Motivation dahinter:**
+*Ich habe Ideen und ich will weiter daran bauen. Ich will nicht verhungern und brauche einen warmen Platz. Ich will Mehrwert für alle schaffen, etwas bieten und zurückgeben – und wenn es nur meine Erfahrung, meine Zeit, meine Energie, mein Wissen, mein Verständnis und meine Vernunft ist.*
+
+*Ihr könnt alle mitmachen. Nehmt euch, was ihr braucht, was ihr vertragt und was für euch sinnvoll ist. Macht etwas Cooles, Sinnvolles und Schönes draus. Aber seid lieb und nett zueinander!*
 
 ## Anonymes Selbstbild
 
