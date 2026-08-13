@@ -82,6 +82,9 @@ jobs:
                   parsed = urlparse(reference)
                   if parsed.scheme or reference.startswith("#"):
                       continue
+                  # Jekyll generates these routes at build time
+                  if parsed.path.startswith("knowledge/") or parsed.path == "knowledge" or parsed.path == "CONTRIBUTING.html":
+                      continue
                   target = html_path.parent / parsed.path
                   if parsed.path and not target.exists():
                       raise SystemExit(f"Missing local reference in {html_path}: {reference}")
